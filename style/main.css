@@ -20,7 +20,7 @@ form {
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input, select, textarea {
   width: 100%;
   background-color: #B1B1B1;
   padding: 12px 20px;
@@ -29,6 +29,13 @@ input[type=text], input[type=password] {
   border: 1px solid #4F80E1;
   box-sizing: border-box;
   border-radius: 5px;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: bold;
+}
+
+textarea {
+  resize: none;
 }
 
 /* Style for labels */
@@ -48,6 +55,9 @@ button {
   cursor: pointer;
   width: 100%;
   border-radius: 5px;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: bold;
 }
 
 /* Hover effect for buttons */
