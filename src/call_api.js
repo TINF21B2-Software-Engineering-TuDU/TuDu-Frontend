@@ -5,7 +5,7 @@ async function login() {
 
     const response_1 = await Promise.resolve(response_1_promise);
 
-    document.getElementById("hello_content").innerHTML = response_1.text;
+    document.getElementById("content_h1").innerHTML = response_1.text;
 }
 
 function get_api_response(url) {
