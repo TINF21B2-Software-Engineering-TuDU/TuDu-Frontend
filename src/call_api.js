@@ -1,11 +1,9 @@
-async function login() {
-    const API_BASE_PATH = "http://localhost:8080";
+export async function perform_api_login(endpoint, user_data) {
+  const API_BASE_PATH = "http://localhost:8080";
 
-    const response_1_promise = get_api_response(API_BASE_PATH);
+  const response_1_promise = post_api_response(API_BASE_PATH + endpoint, user_data);
 
-    const response_1 = await Promise.resolve(response_1_promise);
-
-    document.getElementById("content_h1").innerHTML = response_1.text;
+  return await Promise.resolve(response_1_promise);
 }
 
 function get_api_response(url) {
@@ -27,4 +25,20 @@ function get_api_response(url) {
   });
 }
 
-login();
+function post_api_response(url, data) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+    xhr.setRequestHeader("Content-Type", "application/json"); //x-www-form-urlencoded
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE && (xhr.status >= 200 && xhr.status < 300)) {
+        resolve(JSON.parse(xhr.response));
+      } else {
+        reject(xhr.statusText);
+      }
+    }
+    xhr.send(JSON.stringify(data));
+  });
+}
