@@ -81,3 +81,8 @@ img.user {
 .container {
   padding: 16px;
 }
+
+h1 {
+  color: whitesmoke;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
