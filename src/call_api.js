@@ -27,5 +27,4 @@ function get_api_response(url) {
   });
 }
 
-
 login();
