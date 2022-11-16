@@ -4,12 +4,14 @@
 
   $: user = {
     loggedIn: false,
-    name: "Niklas",
+    name: null,
+    login_time: null,
+    password: null
   };
 </script>
 
 <main>
-  <div id="header">
+  <div class="outline" id="header">
     <Header bind:user />
   </div>
 
@@ -19,27 +21,10 @@
 
   <div id="sidebar" />
 
-  <div id="footer">
+  <div class="outline" id="footer">
     <Footer />
   </div>
 </main>
 
 <style>
-  #header {
-    border: 1px solid red;
-    padding: 60px;
-    text-align: center;
-    background-color: #608894;
-    color: #686868;
-    font-size: 30px;
-  }
-
-  #footer {
-    border: 1px solid red;
-    padding: 60px;
-    text-align: center;
-    background-color: #608894;
-    color: #686868;
-    font-size: 30px;
-  }
 </style>

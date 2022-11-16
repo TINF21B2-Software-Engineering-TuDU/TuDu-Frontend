@@ -7,11 +7,11 @@
   export let user;
 
   // variables
-  let login_show = false;
+  let show_login_form = false;
 
-  function login() {
-    console.log("LOGIN");
-    login_show = !login_show;
+  function show_login() {
+    console.log("SHOW LOGIN");
+    show_login_form = !show_login_form;
   }
 
   function register() {
@@ -21,16 +21,18 @@
   function logout() {
     console.log("LOGOUT");
     user.loggedIn = !user.loggedIn;
-    login_show = !login_show;
+    // show_login_form = !show_login_form;
+
+    // TODO: delete cookies and jwt and all the other local user stuff
   }
-  $: console.log(user.loggedIn, login_show);
+  $: console.log(`user.loggedIn: ${user.loggedIn}, show_login_form: ${show_login_form}`);
 </script>
 
 <p>
   User is {#if !user.loggedIn} not {/if} logged in
 </p>
-{#if login_show && !user.loggedIn}
-  <button on:click={login}> Login </button>
+{#if !(user.loggedIn)}
+  <button on:click={show_login}> Login </button>
   <button on:click={register}> Register </button>
 {:else}
   <p>Hello, {user.name}</p>
@@ -39,14 +41,13 @@
 
 <!-- user.loggedIn = !user.loggedIn; -->
 <!-- login page -->
-{#if login_show}
-  <!-- <div id="viewport" transition:fade> -->
+{#if (show_login_form)}
   <div
     id="viewport"
-    in:fly={{ y: 200, duration: 2000 }}
-    out:fly={{ y: 200, duration: 2000 }}
+    in:fly={{ y: 200, duration: 400 }}
+    out:fly={{ y: 200, duration: 400 }}
   >
-    <svelte:component this={Login} bind:user bind:back={login_show} />
+    <svelte:component this={Login} bind:user bind:show_login_form={show_login_form} />
   </div>
 {/if}
 
