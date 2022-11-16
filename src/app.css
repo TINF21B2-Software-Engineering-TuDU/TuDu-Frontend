@@ -80,3 +80,18 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+div.outline {
+  border-radius: 8px;
+  border: 1px solid red;
+  padding: 60px;
+  text-align: center;
+  background-color: #608894;
+  color: #686868;
+  font-size: 30px;
+}
+div#header {
+}
+
+div#footer {
+}
