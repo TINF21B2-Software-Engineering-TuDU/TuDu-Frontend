@@ -20,7 +20,12 @@
 
   function logout() {
     console.log("LOGOUT");
-    user.loggedIn = !user.loggedIn;
+    user = {
+      loggedIn: false,
+      name: null,
+      login_time: null,
+      password: null,
+    }
     // show_login_form = !show_login_form;
 
     // TODO: delete cookies and jwt and all the other local user stuff

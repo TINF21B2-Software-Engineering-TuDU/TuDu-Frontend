@@ -1,6 +1,6 @@
 <script>
   import { element } from "svelte/internal";
-  import { perform_api_login } from "../call_api";
+  import { post_api_response } from "../call_api";
 
 
   export let user;
@@ -11,12 +11,11 @@
   }
 
   async function exec_usr_login() {
-    const response = await perform_api_login('/api/v1/test/login', user);
-    // user login request to backend with given credentials
-    console.log(response);
-    user.name = response.text;
-    user.loggedIn = true;
-    close_login();
+    const api_response = post_api_response('/api/v1/test/login', user);
+    api_response.then((response) => {
+      user = response;
+      close_login();
+    });
   }
 
   console.log(user);

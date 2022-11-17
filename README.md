@@ -1,10 +1,24 @@
 # TuDu-Frontend
-Frontend of the TuDu Webapplication.
 
+Frontend of the TuDu Webapplication. Current funcitonality: login page with fancy animation 😎.
+
+Build using svelte.
+
+## Developing
+
+Start dev server: `npm run dev`
+
+Build: `npm run build`
+
+### Info
+
+- Images in src/assets
+- css in App.css or local .svelte file
+- don't forget to start the backend and configure the origin
 
 ---
 
-# Svelte + Vite
+# About Svelte + Vite
 
 This template should help get you started developing with Svelte in Vite.
 
