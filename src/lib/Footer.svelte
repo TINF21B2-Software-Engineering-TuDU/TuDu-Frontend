@@ -2,15 +2,14 @@
 </script>
 
 <p>
-  This app was built with love and <img
-    src="/vite.svg"
-    class="logo"
-    alt="Vite Logo"
-  />
+  TuDu - Task Manager <br /> Team TuDu B2
 </p>
-<a href="https://github.com/TuDU-SE">
-  GitHub <img src="src\assets\GitHub-Mark-32px.png" class="logo" alt="Mark" />
-</a>
+<p>
+  GitHub repository:
+  <a href="https://github.com/TuDU-SE">
+    GitHub <img src="src\assets\GitHub-Mark-32px.png" class="logo" alt="Mark" />
+  </a>
+</p>
 
 <style>
 </style>
