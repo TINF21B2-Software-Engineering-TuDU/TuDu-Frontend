@@ -1,14 +1,7 @@
-async function login() {
-    const API_BASE_PATH = "http://localhost:8080";
-
-    const response_1_promise = get_api_response(API_BASE_PATH);
-
-    const response_1 = await Promise.resolve(response_1_promise);
-
-    document.getElementById("content_h1").innerHTML = response_1.text;
-}
+const API_BASE_PATH = "http://localhost:8080";
 
 function get_api_response(url) {
+  url = API_BASE_PATH+url;
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
@@ -27,4 +20,22 @@ function get_api_response(url) {
   });
 }
 
-login();
+export function post_api_response(url, data) {
+  url = API_BASE_PATH+url;
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+
+    xhr.setRequestHeader("Content-Type", "application/json"); //x-www-form-urlencoded
+
+    xhr.onload = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE && (xhr.status >= 200 && xhr.status < 300)) {
+        resolve(JSON.parse(xhr.response));
+      } else {
+        reject(xhr.statusText);
+      }
+    }
+    xhr.onerror = () => reject(xhr.statusText);
+    xhr.send(JSON.stringify(data));
+  });
+}
