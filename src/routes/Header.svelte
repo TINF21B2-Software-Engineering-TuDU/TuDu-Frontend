@@ -1,21 +1,9 @@
 <script lang="ts">
+	import { redirect } from '@sveltejs/kit';
 	import { user } from '../store';
-	user;
+	$user;
 
-	function logout() {
-		console.log('LOGOUT');
-		$user = {
-			isLoggedIn: false,
-			email: null,
-			name: null,
-			loginTime: new Date('08.04.2023'),
-			passwordHash: '0'
-		};
-		// show_login_form = !show_login_form;
-
-		// TODO: delete cookies and jwt and all the other local user stuff
-	}
-	$: console.log(`user.loggedIn: ${$user.isLoggedIn}`);
+	$: console.log({$user});
 </script>
 
 <header>

@@ -24,6 +24,8 @@ export const actions: Actions = {
 		//   });
 		// }
 
+		console.log("SIGN UP");
+
 		// Redirect to the login page
 		throw redirect(302, '/login');
 	}

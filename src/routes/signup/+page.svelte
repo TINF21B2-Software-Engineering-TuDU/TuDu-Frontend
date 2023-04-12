@@ -1,8 +1,11 @@
 <script lang="ts">
 	import { element } from 'svelte/internal';
 	import { useForm, validators, HintGroup, Hint, email, required } from 'svelte-use-form';
+	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
 
 	const form = useForm();
+	export let form_data: ActionData;
 
 	let useremail: string;
 	let username: string;
@@ -12,14 +15,37 @@
 <h1>Sign Up</h1>
 <p>Please input your credentials</p>
 
-<form id="login_form" use:form method="post">
+<form id="login_form" use:form method="post" use:enhance>
+	{#if form_data?.error}
+		<div class="notice error">
+			{form_data.error}
+		</div>
+	{/if}
 	<label for="input_name">Name:</label><br />
 	<input type="name" name="name" id="name" bind:value={username} use:validators={[required]} />
 	<div class="hint-space">
 		<Hint on="required">Please fill out this field!</Hint>
 	</div>
+	<label for="input_pwd">Password:</label>
+	<input
+		type="password"
+		name="password"
+		id="password"
+		bind:value={password}
+		use:validators={[required]}
+	/>
+	<div class="hint-space">
+		<Hint for="password" on="required">Please fill out this field!</Hint>
+	</div>
+	<div class="btn">
+		<a href="/signup">Sign Up</a>
+	</div>
+</form>
 
-	<!-- <label for="input_email">E-Mail:</label><br />
+<!-- back-button -->
+<a class="btn" href="/">Back</a>
+
+<!-- <label for="input_email">E-Mail:</label><br />
 	<input
 		type="email"
 		name="email"
@@ -33,23 +59,6 @@
 			<Hint on="email">Please fill in a valid email!</Hint>
 		</HintGroup>
 	</div> -->
-
-	<label for="input_pwd">Password:</label>
-	<input
-		type="password"
-		name="password"
-		id="password"
-		bind:value={password}
-		use:validators={[required]}
-	/>
-	<div class="hint-space">
-		<Hint for="password" on="required">Please fill out this field!</Hint>
-	</div>
-	<a href="/signup">Sign Up</a>
-</form>
-
-<!-- back-button -->
-<a class="btn" href="/">Back</a>
 
 <style>
 	form {

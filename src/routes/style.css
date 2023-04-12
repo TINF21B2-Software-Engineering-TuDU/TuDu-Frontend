@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
 :root {
-	font-family: Ubuntu, Helvetica, Arial, sans-serif;
+	font-family: 'Ubuntu', sans-serif;;
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 400;

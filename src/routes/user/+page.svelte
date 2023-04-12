@@ -1,1 +1,7 @@
-<h1>User</h1>
+<script lang="ts">
+	import { user } from "../../store";
+
+    $user;
+</script>
+
+<h1>{$user.name}</h1>

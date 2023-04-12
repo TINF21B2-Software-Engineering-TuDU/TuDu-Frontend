@@ -3,7 +3,7 @@ import type { item, User } from "./entities";
 
 // eslint-disable-next-line prefer-const
 export let user = writable({
-    isLoggedIn: false,
+    isLoggedIn: true,
     loginTime: new Date,
     name: null,
     passwordHash: "1234"
