@@ -1,10 +1,14 @@
 import { fail, redirect } from "@sveltejs/kit";
-
-import bcrypt from 'bcrypt';
 import type { Action, Actions, PageServerLoad } from './$types'
+import bcrypt from 'bcrypt';
+
 
 export const load: PageServerLoad = async () => {
-	// TODO:
+	// const user = event.locals.user;
+
+	// if (user) {
+	// 	throw redirect(302, '/')
+	// }
 }
 
 const login: Action = async ({ cookies, request }) => {
@@ -20,25 +24,21 @@ const login: Action = async ({ cookies, request }) => {
 
 	// hier user aus DB anfordern
 
+	const response = await fetch('localhost:8080/api/v1/login', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: username, password: password})
+    })
 	// if(!user) {
 	// 	return fail(400, { credentials: true });
 	// }
-
-	// compare with password from backend
-	const userPassword = await bcrypt.compare(password, user.passwordHash);
-
-	// error check
-	if (!userPassword) {
-		return fail(400, { credentials: true });
-	}
-
 	
-	const authenticatedUser = await db.user.update({
-		where: { username: user.username },
-		data: { userAuthToken: crypto.randomUUID() },
-	})
+	const user = await response.json();
 
-	cookies.set('session', authenticatedUser.userAuthToken, {
+	cookies.set('session', user.userAuthToken, {
 		// send cookie for every page
 		path: '/',
 		// server side only cookie so you can't use `document.cookie`

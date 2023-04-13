@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { useForm, validators, HintGroup, Hint, email, required } from 'svelte-use-form';
+	import { validators, HintGroup, Hint, email, required } from 'svelte-use-form';
 
 	import type { ActionData } from './$types';
 
@@ -10,50 +10,58 @@
 	let password: string;
 </script>
 
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
+
 <h1>Login</h1>
 <p>Please input your credentials</p>
 
-<form id="login_form" action="/login" method="post" use:enhance>
-	<label for="input_email">E-Mail:</label><br />
-	<input
-		type="email"
-		name="email"
-		id="email"
-		bind:value={useremail}
-		use:validators={[required, email]}
-	/>
-	<div class="hint-space">
-		<HintGroup for="email">
-			<Hint on="required">Please fill out this field!</Hint>
-			<Hint on="email">Please fill in a valid email!</Hint>
-		</HintGroup>
+<section>
+	<form method="POST" action="/login" use:enhance>
+		<div>
+			<label for="username">E-Mail:</label><br />
+			<input
+				type="username"
+				name="username"
+				id="username"
+				bind:value={useremail}
+				use:validators={[required]}
+			/>
+		</div>
+		<div class="hint-space">
+			<Hint for="username" on="required">Please fill out this field!</Hint>
+		</div>
+		<div>
+			<label for="input_pwd">Password:</label>
+			<input
+				type="password"
+				name="password"
+				id="password"
+				bind:value={password}
+				use:validators={[required]}
+			/>
+		</div>
+		<div class="hint-space">
+			<Hint for="password" on="required">Please fill out this field!</Hint>
+		</div>
+
+		<div class="submit-container">
+			<button type="submit">Login</button>
+		</div>
+
+		{#if form?.error}
+			<div class="notice error">
+				{form.error}
+			</div>
+		{/if}
+	</form>
+
+	<div class="actions">
+		No Account? Sign up <a href="/signup">here</a>!<br>
+		<a class="btn" href="/">Back</a>
 	</div>
-
-	<label for="input_pwd">Password:</label>
-	<input
-		type="password"
-		name="password"
-		id="password"
-		bind:value={password}
-		use:validators={[required]}
-	/>
-	<div class="hint-space">
-		<Hint for="password" on="required">Please fill out this field!</Hint>
-	</div>
-
-	{#if form?.invalid}
-		<p class="error">Username and password is required.</p>
-	{/if}
-
-	{#if form?.credentials}
-		<p class="error">You have entered the wrong credentials.</p>
-	{/if}
-
-	<button type="submit">Login</button>
-</form>
-
-<!-- back-button -->
-<a class="btn" href="/">Back</a>
+</section>
 
 <style>
 	form {

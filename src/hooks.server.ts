@@ -1,33 +1,43 @@
-import type { Handle } from '@sveltejs/kit'
-import { user } from './store';
+import type { Handle } from "@sveltejs/kit";
 
-export const handle: Handle = async ({event, resolve}) => {
-    // get cookie
-    const session = event.cookies.get('session');
+const handle: Handle = async ({ event, resolve }) => {
+	const { headers } = event.request;
 
-    // if no cookie is set, load page normal
-    if(!session) {
-        return await resolve(event);
-    }
+	const cookies = parse(headers.get('cookie') ?? '');
 
-    // get user from DB
-    const user = await fetch('localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({email: })
-    })
+	if (cookies.AuthorizationToken) {
+		// Remove Bearer prefix
 
-    // TEST
+		const token = cookies.AuthorizationToken.split(' ')[1];
 
-    if (user) {
-        event.locals.user = {
-            name: user.username,
-            role: user.role.name
-        }
-    }
+		try {
+			const jwtUser = jwt.verify(token, import.meta.env.VITE_JWT_ACCESS_SECRET);
 
-    return await resolve(event)
-}
+			if (typeof jwtUser === 'string') {
+				throw new Error('Something went wrong');
+			}
+
+			const user = await db.user.findUnique({
+				where: {
+					id: jwtUser.id
+				}
+			});
+
+			if (!user) {
+				throw new Error('User not found');
+			}
+
+			const sessionUser: SessionUser = {
+				id: user.id,
+
+				email: user.email
+			};
+
+			event.locals.user = sessionUser;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	return await resolve(event);
+};

@@ -14,27 +14,37 @@
 <h1>Sign Up</h1>
 <p>Please input your credentials</p>
 
-<form id="login_form" action="/signup" method="post" use:enhance>
+<form id="login_form" action="?/signup" method="POST" use:enhance>
 	{#if form?.error}
 		<div class="notice error">
 			{form.error}
 		</div>
 	{/if}
-	<label for="input_name">Name:</label><br />
-	<input type="name" name="name" id="name" bind:value={username} use:validators={[required]} />
 
-	<label for="input_pwd">Password:</label>
-	<input
-		type="password"
-		name="password"
-		id="password"
-		bind:value={password}
-		use:validators={[required]}
-	/>
+	<div>
+		<label for="input_name">Name:</label><br />
+		<input type="name" name="name" id="name" bind:value={username} use:validators={[required]} />
+	</div>
+
+	<div>
+		<label for="input_pwd">Password:</label>
+		<input
+			type="password"
+			name="password"
+			id="password"
+			bind:value={password}
+			use:validators={[required]}
+		/>
+	</div>
 	<div class="hint-space">
-		<Hint on="required">Please fill out this field!</Hint>
+		<Hint for="name" on="required">Please fill out this field!</Hint>
 		<Hint for="password" on="required">Please fill out this field!</Hint>
 	</div>
+
+	{#if form?.user}
+		<p class="error">Username is taken!</p>
+	{/if}
+
 	<div class="btn">
 		<a href="/signup">Sign Up</a>
 	</div>

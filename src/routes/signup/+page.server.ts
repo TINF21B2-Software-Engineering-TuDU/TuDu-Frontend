@@ -5,10 +5,12 @@ import bcrypt from 'bcrypt';
 enum Roles {
 	ADMIN = 'ADMIN',
 	USER = 'USER'
-};
+}
+
+const numSaltRound = 8;
 
 export const load: PageServerLoad = async () => {
-	// TODO: 
+	// TODO:
 };
 
 const signup: Action = async ({ request }) => {
@@ -16,42 +18,32 @@ const signup: Action = async ({ request }) => {
 	const username = data.get('name');
 	const password = data.get('password');
 
-	if (
-		typeof username !== 'string' ||
-		typeof password !== 'string' ||
-		!username ||
-		!password
-	) {
+	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
 		return fail(400, { invalid: true });
 	}
 
-	// create USER in DB
+	const hashedPassword = bcrypt.hash(password, numSaltRound);
 
-    const user = await fetch('localhost:8080/register', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({email: username, password: password, role: Roles.USER})
-    })
+	// create USER in DB
+	const response = await fetch('localhost:8080/v1/register', {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ email: username, password: hashedPassword })
+	});
+	const jsonData = await response.json();
+
+	console.log(jsonData);
 
 	// error-handling
 	// if user already exists
 	// other error
-	if (user) {
+	if (jsonData) {
 		return fail(400, { user: true });
 	}
 
 	// everythings good -> redirect to login
 	throw redirect(302, '/login');
-
-	// await db.user.create({
-	// 	data: {
-	// 		username,
-	// 		passwordHash: await bcrypt.hash(password, 10),
-	// 		userAuthToken: crypto.randomUUID(),
-	// 		role: { connect: { name: Roles.USER } },
-	// 	},
-	// })
-}
+};
