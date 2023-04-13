@@ -3,6 +3,10 @@
 	import { user } from '../store';
 	$user;
 
+	function logout() {
+		throw redirect(302, '/logout');
+	}
+
 	$: console.log({$user});
 </script>
 

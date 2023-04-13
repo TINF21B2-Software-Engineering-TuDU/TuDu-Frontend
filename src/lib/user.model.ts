@@ -1,8 +1,6 @@
 import { JWT_ACCESS_SECRET } from '$env/static/private';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
-import { db } from '$lib/db';
 
 const createUser = async (email: string, password: string) => {
     // Check if user exists

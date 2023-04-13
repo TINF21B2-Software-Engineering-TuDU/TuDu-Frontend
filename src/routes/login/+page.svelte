@@ -2,28 +2,18 @@
 	import { enhance } from '$app/forms';
 	import { useForm, validators, HintGroup, Hint, email, required } from 'svelte-use-form';
 
-	import { user } from '../../store';
+	import type { ActionData } from './$types';
 
-	const form = useForm();
-
-	user;
+	export let form: ActionData;
 
 	let useremail: string;
 	let password: string;
-
-	const exec_usr_login = () => {
-		$user.name = useremail;
-		$user.email = useremail;
-		$user.passwordHash = password;
-		$user.isLoggedIn = true;
-		$user.loginTime = new Date();
-	};
 </script>
 
 <h1>Login</h1>
 <p>Please input your credentials</p>
 
-<form id="login_form" use:form method="post" use:enhance>
+<form id="login_form" action="/login" method="post" use:enhance>
 	<label for="input_email">E-Mail:</label><br />
 	<input
 		type="email"
@@ -50,7 +40,16 @@
 	<div class="hint-space">
 		<Hint for="password" on="required">Please fill out this field!</Hint>
 	</div>
-	<button disabled={!$form.valid}>Login</button>
+
+	{#if form?.invalid}
+		<p class="error">Username and password is required.</p>
+	{/if}
+
+	{#if form?.credentials}
+		<p class="error">You have entered the wrong credentials.</p>
+	{/if}
+
+	<button type="submit">Login</button>
 </form>
 
 <!-- back-button -->
