@@ -17,51 +17,32 @@
 <h1>Login</h1>
 <p>Please input your credentials</p>
 
-<section>
-	<form method="POST" action="/login" use:enhance>
-		<div>
-			<label for="username">E-Mail:</label><br />
-			<input
-				type="username"
-				name="username"
-				id="username"
-				bind:value={useremail}
-				use:validators={[required]}
-			/>
-		</div>
-		<div class="hint-space">
-			<Hint for="username" on="required">Please fill out this field!</Hint>
-		</div>
-		<div>
-			<label for="input_pwd">Password:</label>
-			<input
-				type="password"
-				name="password"
-				id="password"
-				bind:value={password}
-				use:validators={[required]}
-			/>
-		</div>
-		<div class="hint-space">
-			<Hint for="password" on="required">Please fill out this field!</Hint>
-		</div>
-
-		<div class="submit-container">
-			<button type="submit">Login</button>
-		</div>
-
-		{#if form?.error}
-			<div class="notice error">
-				{form.error}
-			</div>
-		{/if}
-	</form>
-
-	<div class="actions">
-		No Account? Sign up <a href="/signup">here</a>!<br>
-		<a class="btn" href="/">Back</a>
+<form action="?/login" method="post">
+	<div>
+		<label for="username">Name:</label>
+		<input type="text" id="username" name="username" required />
 	</div>
-</section>
+
+	<div>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required />
+	</div>
+
+	{#if form?.invalid}
+		<p class="error">Username and password is required.</p>
+	{/if}
+
+	{#if form?.credentials}
+		<p class="error">You have entered the wrong credentials.</p>
+	{/if}
+
+	<button type="submit">Login</button>
+</form>
+
+<div class="actions">
+	No Account? Sign up <a href="/signup">here</a>!<br />
+	<a class="btn" href="/">Back</a>
+</div>
 
 <style>
 	form {
@@ -93,5 +74,8 @@
 	}
 	.btn {
 		border: 1px solid gray;
+	}
+	.error {
+		color: red;
 	}
 </style>

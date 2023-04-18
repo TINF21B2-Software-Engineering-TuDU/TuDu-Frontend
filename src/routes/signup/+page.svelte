@@ -6,67 +6,36 @@
 
 	export let form: ActionData;
 
-	let useremail: string;
-	let username: string;
-	let password: string;
+	// let useremail: string;
+	// let username: string;
+	// let password: string;
 </script>
 
 <h1>Sign Up</h1>
 <p>Please input your credentials</p>
 
-<form id="login_form" action="?/signup" method="POST" use:enhance>
-	{#if form?.error}
-		<div class="notice error">
-			{form.error}
-		</div>
-	{/if}
-
+<form action="?/signup" method="POST">
 	<div>
-		<label for="input_name">Name:</label><br />
-		<input type="name" name="name" id="name" bind:value={username} use:validators={[required]} />
+		<label for="username">Name:</label>
+		<input type="text" id="username" name="username" required />
 	</div>
 
 	<div>
-		<label for="input_pwd">Password:</label>
-		<input
-			type="password"
-			name="password"
-			id="password"
-			bind:value={password}
-			use:validators={[required]}
-		/>
-	</div>
-	<div class="hint-space">
-		<Hint for="name" on="required">Please fill out this field!</Hint>
-		<Hint for="password" on="required">Please fill out this field!</Hint>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required />
 	</div>
 
 	{#if form?.user}
-		<p class="error">Username is taken!</p>
+		<p class="error">{form?.info}</p>
 	{/if}
 
 	<div class="btn">
-		<a href="/signup">Sign Up</a>
+		<button type="submit">Sign Up</button>
 	</div>
 </form>
 
 <!-- back-button -->
 <a class="btn" href="/">Back</a>
-
-<!-- <label for="input_email">E-Mail:</label><br />
-	<input
-		type="email"
-		name="email"
-		id="email"
-		bind:value={useremail}
-		use:validators={[required, email]}
-	/>
-	<div class="hint-space">
-		<HintGroup for="email">
-			<Hint on="required">Please fill out this field!</Hint>
-			<Hint on="email">Please fill in a valid email!</Hint>
-		</HintGroup>
-	</div> -->
 
 <style>
 	form {
@@ -80,9 +49,6 @@
 		box-sizing: border-box;
 		font-size: 24px;
 		align-items: left;
-	}
-	input[type='email'] {
-		width: 100%;
 	}
 	input[type='password'] {
 		width: 100%;
@@ -98,5 +64,8 @@
 	}
 	.btn {
 		border: 1px solid gray;
+	}
+	.error {
+		color: red;
 	}
 </style>

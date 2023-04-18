@@ -13,10 +13,29 @@ export const load: PageServerLoad = async () => {
 	// TODO:
 };
 
+const postSignUp = async (username: string, hashedPassword: Promise<string>) => {
+	const response = await fetch('http://localhost:8080/auth/v1/register', {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ email: username, passwd: hashedPassword })
+	});
+	if (response.headers.get('content-type')?.includes('application/json')) {
+		const json = await response.json();
+		return { response, json };
+	} else {
+		return { response };
+	}
+};
+
 const signup: Action = async ({ request }) => {
 	const data = await request.formData();
-	const username = data.get('name');
+	const username = data.get('username');
 	const password = data.get('password');
+
+	console.log(username, password);
 
 	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
 		return fail(400, { invalid: true });
@@ -25,25 +44,18 @@ const signup: Action = async ({ request }) => {
 	const hashedPassword = bcrypt.hash(password, numSaltRound);
 
 	// create USER in DB
-	const response = await fetch('localhost:8080/v1/register', {
-		method: 'POST',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ email: username, password: hashedPassword })
-	});
-	const jsonData = await response.json();
+	const jsonData = await postSignUp(username, hashedPassword);
 
 	console.log(jsonData);
-
 	// error-handling
 	// if user already exists
 	// other error
-	if (jsonData) {
-		return fail(400, { user: true });
+	if (jsonData.response.status >= 400) {
+		return fail(400, { user: true, info: jsonData.json.text });
 	}
 
 	// everythings good -> redirect to login
 	throw redirect(302, '/login');
 };
+
+export const actions: Actions = { signup };

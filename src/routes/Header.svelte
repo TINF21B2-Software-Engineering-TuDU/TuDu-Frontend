@@ -16,9 +16,7 @@
 		<a href="/main">Main</a>
 		<a href="/user">{$user.name}</a>
 		<a href="/about">About</a>
-		{#if $user.isLoggedIn}
-			<button on:click={logout}>Logout</button>
-		{/if}
+		<a href="/logout" class="btn">Logout</a>
 	</nav>
 </header>
 
