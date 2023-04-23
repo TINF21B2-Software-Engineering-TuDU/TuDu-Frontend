@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { redirect } from '@sveltejs/kit';
-
-	import { page } from '$app/stores'
+	import { page } from '$app/stores';
 </script>
 
 <header>
@@ -11,10 +9,7 @@
 		<a href="/user">{$page.data.user.username}</a>
 		<a href="/about">About</a>
 		{#if $page.data.user.isLoggedIn}
-			<form action="?/logout">
-				<input type="hidden" name="username" id="username" value="{$page.data.user.username}">
-				<button type="submit">Logout</button>
-			</form>
+			<a href="/logout/{$page.data.user.username}">Logout</a>
 		{:else}
 			<a href="/login">Login</a><a href="/signup">Sign Up</a>
 		{/if}
