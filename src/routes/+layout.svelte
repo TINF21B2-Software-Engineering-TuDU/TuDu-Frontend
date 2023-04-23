@@ -6,7 +6,7 @@
 	// data
 	import { user } from '../store';
 
-	$user.name = 'User';
+	$user.username = 'User';
 
 	let show_login_form = false;
 </script>

@@ -39,14 +39,6 @@ const login: Action = async ({ cookies, request }) => {
 	// hier user aus DB anfordern
 	const jsonData = await postLogin(username, password);
 
-	if (jsonData.response.headers.get('set-cookie') == null) {
-		return fail(400, { credentials: true });
-	}
-
-	let tokens = jsonData.response.headers.get('set-cookie').split(' ');
-	const auth_token = tokens[0].slice(11).slice(0, -1);
-	const refresh_token = tokens[2].slice(14).slice(0, -1);
-
 	// error-handling
 	// if user already exists
 	// other error
@@ -54,7 +46,15 @@ const login: Action = async ({ cookies, request }) => {
 		return fail(400, { credentials: true });
 	}
 
-	cookies.set('session', auth_token, {
+	if (jsonData.response.headers.get('set-cookie') == null) {
+		return fail(400, { credentials: true });
+	}
+
+	const tokens = jsonData.response.headers.get('set-cookie').split(' ');
+	const auth_token = tokens[0].slice(11).slice(0, -1);
+	const refresh_token = tokens[2].slice(14).slice(0, -1);
+
+	cookies.set('auth_token', auth_token, {
 		// send cookie for every page
 		path: '/',
 		// server side only cookie so you can't use `document.cookie`
@@ -68,7 +68,7 @@ const login: Action = async ({ cookies, request }) => {
 		maxAge: 60 * 60 * 24 * 30
 	});
 
-	cookies.set('refresh', refresh_token, {
+	cookies.set('refresh_token', refresh_token, {
 		path: '/',
 		httpOnly: true,
 		sameSite: 'strict',

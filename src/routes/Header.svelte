@@ -1,22 +1,23 @@
 <script lang="ts">
 	import { redirect } from '@sveltejs/kit';
-	import { user } from '../store';
-	$user;
 
-	function logout() {
-		throw redirect(302, '/logout');
-	}
-
-	$: console.log({$user});
+	import { page } from '$app/stores'
 </script>
 
 <header>
 	<nav>
 		<a href="/">Home</a>
 		<a href="/main">Main</a>
-		<a href="/user">{$user.name}</a>
+		<a href="/user">{$page.data.user.username}</a>
 		<a href="/about">About</a>
-		<a href="/logout" class="btn">Logout</a>
+		{#if $page.data.user.isLoggedIn}
+			<form action="?/logout">
+				<input type="hidden" name="username" id="username" value="{$page.data.user.username}">
+				<button type="submit">Logout</button>
+			</form>
+		{:else}
+			<a href="/login">Login</a><a href="/signup">Sign Up</a>
+		{/if}
 	</nav>
 </header>
 
