@@ -2,15 +2,10 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
 
-enum Roles {
-	ADMIN = 'ADMIN',
-	USER = 'USER'
-}
-
 const numSaltRound = 8;
 
 export const load: PageServerLoad = async () => {
-	// TODO:
+	// nothing needs to happen here
 };
 
 const postSignUp = async (username: string, hashedPassword: Promise<string>) => {
@@ -31,12 +26,12 @@ const postSignUp = async (username: string, hashedPassword: Promise<string>) => 
 };
 
 const signup: Action = async ({ request }) => {
+	// get input field data
 	const data = await request.formData();
 	const username = data.get('username');
 	const password = data.get('password');
 
-	console.log(username, password);
-
+	// check input
 	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
 		return fail(400, { invalid: true });
 	}
@@ -44,14 +39,12 @@ const signup: Action = async ({ request }) => {
 	const hashedPassword = bcrypt.hash(password, numSaltRound);
 
 	// create USER in DB
-	const jsonData = await postSignUp(username, hashedPassword);
+	const response = await postSignUp(username, hashedPassword);
 
-	console.log(jsonData);
-	// error-handling
-	// if user already exists
-	// other error
-	if (jsonData.response.status >= 400) {
-		return fail(400, { user: true, info: jsonData.json.text });
+	// error-handling:
+	// - if user already exists - other error
+	if (response.response.status >= 400 || !response.response.ok) {
+		return fail(400, { user: true, info: response.json.text });
 	}
 
 	// everythings good -> redirect to login
