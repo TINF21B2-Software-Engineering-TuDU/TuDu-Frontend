@@ -2,13 +2,6 @@
 	import Footer from './Footer.svelte';
 	import Header from './Header.svelte';
 	import './style.css';
-
-	// data
-	import { user } from '../store';
-
-	$user.name = 'User';
-
-	let show_login_form = false;
 </script>
 
 <div class="app">

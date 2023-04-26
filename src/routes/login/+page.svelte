@@ -1,60 +1,48 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { useForm, validators, HintGroup, Hint, email, required } from 'svelte-use-form';
+	import { validators, HintGroup, Hint, email, required } from 'svelte-use-form';
 
-	import { user } from '../../store';
+	import type { ActionData } from './$types';
 
-	const form = useForm();
-
-	user;
+	export let form: ActionData;
 
 	let useremail: string;
 	let password: string;
-
-	const exec_usr_login = () => {
-		$user.name = useremail;
-		$user.email = useremail;
-		$user.passwordHash = password;
-		$user.isLoggedIn = true;
-		$user.loginTime = new Date();
-	};
 </script>
+
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 
 <h1>Login</h1>
 <p>Please input your credentials</p>
 
-<form id="login_form" use:form method="post" use:enhance>
-	<label for="input_email">E-Mail:</label><br />
-	<input
-		type="email"
-		name="email"
-		id="email"
-		bind:value={useremail}
-		use:validators={[required, email]}
-	/>
-	<div class="hint-space">
-		<HintGroup for="email">
-			<Hint on="required">Please fill out this field!</Hint>
-			<Hint on="email">Please fill in a valid email!</Hint>
-		</HintGroup>
+<form action="?/login" method="post">
+	<div>
+		<label for="username">Name:</label>
+		<input type="text" id="username" name="username" required />
 	</div>
 
-	<label for="input_pwd">Password:</label>
-	<input
-		type="password"
-		name="password"
-		id="password"
-		bind:value={password}
-		use:validators={[required]}
-	/>
-	<div class="hint-space">
-		<Hint for="password" on="required">Please fill out this field!</Hint>
+	<div>
+		<label for="password">Password:</label>
+		<input type="password" id="password" name="password" required />
 	</div>
-	<button disabled={!$form.valid}>Login</button>
+
+	{#if form?.invalid}
+		<p class="error">Username and password is required.</p>
+	{/if}
+
+	{#if form?.credentials}
+		<p class="error">You have entered the wrong credentials.</p>
+	{/if}
+
+	<button type="submit">Login</button>
 </form>
 
-<!-- back-button -->
-<a class="btn" href="/">Back</a>
+<div class="actions">
+	No Account? Sign up <a href="/signup">here</a>!<br />
+	<a class="btn" href="/">Back</a>
+</div>
 
 <style>
 	form {
@@ -86,5 +74,8 @@
 	}
 	.btn {
 		border: 1px solid gray;
+	}
+	.error {
+		color: red;
 	}
 </style>

@@ -1,13 +1,5 @@
 import { writable } from "svelte/store";
-import type { item, User } from "./entities";
-
-// eslint-disable-next-line prefer-const
-export let user = writable({
-    isLoggedIn: true,
-    loginTime: new Date,
-    name: null,
-    passwordHash: "1234"
-} as User); 
+import type { item } from "./entities";
 
 // eslint-disable-next-line prefer-const
 export let list_item = writable({

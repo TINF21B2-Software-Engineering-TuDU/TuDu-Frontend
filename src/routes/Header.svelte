@@ -1,19 +1,17 @@
 <script lang="ts">
-	import { redirect } from '@sveltejs/kit';
-	import { user } from '../store';
-	$user;
-
-	$: console.log({$user});
+	import { page } from '$app/stores';
 </script>
 
 <header>
 	<nav>
 		<a href="/">Home</a>
 		<a href="/main">Main</a>
-		<a href="/user">{$user.name}</a>
+		<a href="/user">{$page.data.user.username}</a>
 		<a href="/about">About</a>
-		{#if $user.isLoggedIn}
-			<button on:click={logout}>Logout</button>
+		{#if $page.data.user.isLoggedIn}
+			<a href="/logout/{$page.data.user.username}">Logout</a>
+		{:else}
+			<a href="/login">Login</a><a href="/signup">Sign Up</a>
 		{/if}
 	</nav>
 </header>

@@ -1,32 +1,54 @@
-import type { Actions } from './$types';
+import type { Action, Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
+import bcrypt from 'bcrypt';
 
-export const actions: Actions = {
-	default: async (event) => {
-		const formData = Object.fromEntries(await event.request.formData());
+const numSaltRound = 8;
 
-		// Verify that we have an email and a password
-		if (!formData.email || !formData.password) {
-			return fail(400, {
-				error: 'Missing email or password'
-			});
-		}
+export const load: PageServerLoad = async () => {
+	// nothing needs to happen here
+};
 
-		const { email, password } = formData as { email: string; password: string };
-
-		// Create a new user
-		// in db erstellen
-
-		// If there was an error, return an fail response
-		// if (error) {
-		//   return fail(500, {
-		//     error
-		//   });
-		// }
-
-		console.log("SIGN UP");
-
-		// Redirect to the login page
-		throw redirect(302, '/login');
+const postSignUp = async (username: string, hashedPassword: Promise<string>) => {
+	const response = await fetch('http://localhost:8080/auth/v1/register', {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ email: username, passwd: hashedPassword })
+	});
+	if (response.headers.get('content-type')?.includes('application/json')) {
+		const json = await response.json();
+		return { response, json };
+	} else {
+		return { response };
 	}
 };
+
+const signup: Action = async ({ request }) => {
+	// get input field data
+	const data = await request.formData();
+	const username = data.get('username');
+	const password = data.get('password');
+
+	// check input
+	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
+		return fail(400, { invalid: true });
+	}
+
+	const hashedPassword = bcrypt.hash(password, numSaltRound);
+
+	// create USER in DB
+	const response = await postSignUp(username, hashedPassword);
+
+	// error-handling:
+	// - if user already exists - other error
+	if (response.response.status >= 400 || !response.response.ok) {
+		return fail(400, { user: true, info: response.json.text });
+	}
+
+	// everythings good -> redirect to login
+	throw redirect(302, '/login');
+};
+
+export const actions: Actions = { signup };

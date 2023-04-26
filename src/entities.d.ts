@@ -1,9 +1,8 @@
 export interface User { 
-	name?: string | null, 
+	username?: string | null, 
 	email?: string | null,
 	loginTime: Date, 
-	isLoggedIn: boolean, 
-	passwordHash: string 
+	isLoggedIn: boolean
 }
 
 export interface item {
