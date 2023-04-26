@@ -2,8 +2,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	// the logout is only used to inform the DB and does not need to be displayed to the user
-	// hence, the user is immediately redirected to the landing page
+	// logout is only serverside and deteles cookies and informs API
+	// user does not need to see this page
 	throw redirect(302, '/');
 };
 
@@ -22,29 +22,20 @@ const getLogout = async (username?: string) => {
 
 export const actions: Actions = {
 	async default({ cookies, request }) {
-		const data = await request.formData();
-		const username = data.get('username')?.toString();
-
 		// TODO: change form to load function from the hook
 		if (!username) {
 			throw redirect(302, "/main");
 		}
-		const logout = await getLogout( username );
+		const logout = await getLogout(username);
 
 		if (logout.status >= 400) {
 			return redirect
 		}
 
-
 		// eat the cookie
-		cookies.set('auth_token', '', {
-			path: '/',
-			expires: new Date(0)
-		});
-		cookies.set('refresh_token', '', {
-			path: '/',
-			expires: new Date(0)
-		});
+		await cookies.delete('auth_token');
+		await cookies.delete('refresh_token');
+
 		throw redirect(302, '/login');
 	}
 };

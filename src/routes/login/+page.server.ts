@@ -3,10 +3,6 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcrypt';
 
 export const load: PageServerLoad = async () => {
-	// const user = event.locals.user;
-	// if (user) {
-	// 	throw redirect(302, '/')
-	// }
 };
 
 const postLogin = async (username: string, password: string) => {
@@ -55,17 +51,12 @@ const login: Action = async ({ cookies, request }) => {
 	const refresh_token = tokens[2].slice(14).slice(0, -1);
 
 	cookies.set('auth_token', auth_token, {
-		// send cookie for every page
 		path: '/',
-		// server side only cookie so you can't use `document.cookie`
 		httpOnly: true,
-		// only requests from same site can send cookies
-		// https://developer.mozilla.org/en-US/docs/Glossary/CSRF
 		sameSite: 'strict',
-		// only sent over HTTPS in production
 		secure: process.env.NODE_ENV === 'production',
-		// set cookie to expire after a month
 		maxAge: 60 * 60 * 24 * 30
+		// domain: '127.0.0.1'
 	});
 
 	cookies.set('refresh_token', refresh_token, {
@@ -74,6 +65,7 @@ const login: Action = async ({ cookies, request }) => {
 		sameSite: 'strict',
 		secure: process.env.NODE_ENV === 'production',
 		maxAge: 60 * 60 * 24 * 30
+		// domain: '127.0.0.1'
 	});
 
 	// redirect the user

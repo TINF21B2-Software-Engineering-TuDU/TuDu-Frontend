@@ -5,27 +5,27 @@
 
 	const { lists } = data;
 
-	console.log(data);
-	console.log(lists);
-
-    let create_new_list = false;
+	let create_new_list = false;
 </script>
 
 <h1>Your Lists</h1>
+{#if lists != null}
+	{#each lists as list}
+		<a href="/main/lists/{list.id}">
+			<div class="list">
+				<h2>{list.title} #{list.id}</h2>
+				<p>Description: {list.description}</p>
+			</div>
+		</a>
+	{/each}
+{:else}
+	<p>You have no lists! Create one <a href="/main/lists/new">here</a>.</p>
+{/if}
 
-{#each lists as list}
-	<a href="/main/lists/{list.id}">
-		<div class="list">
-			<h2>{list.title} #{list.id}</h2>
-			<p>Description: {list.description}</p>
-		</div>
-	</a>
-{/each}
-
-<hr>
+<hr />
 
 <div class="new_list">
-    <p>Create new list <a href="/main/lists/new">here</a>.</p>
+	<p>Create new list <a href="/main/lists/new">here</a>.</p>
 </div>
 
 <style>
