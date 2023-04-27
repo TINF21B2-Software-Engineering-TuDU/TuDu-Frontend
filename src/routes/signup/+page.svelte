@@ -5,10 +5,6 @@
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
-
-	// let useremail: string;
-	// let username: string;
-	// let password: string;
 </script>
 
 <h1>Sign Up</h1>
@@ -41,6 +37,7 @@
 	form {
 		width: 100%;
 	}
+
 	input {
 		color: #b1b1b1;
 		width: auto;
@@ -50,21 +47,20 @@
 		font-size: 24px;
 		align-items: left;
 	}
+
 	input[type='password'] {
 		width: 100%;
 	}
+
 	:global(.touched:invalid) {
 		border-color: red;
 		outline-color: red;
 	}
-	.hint-space {
-		font-size: 20px;
-		color: red;
-		align-items: left;
-	}
+
 	.btn {
 		border: 1px solid gray;
 	}
+
 	.error {
 		color: red;
 	}

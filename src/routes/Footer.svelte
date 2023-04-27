@@ -4,7 +4,7 @@
 
 <footer>
 	<p>
-		TuDu - Task Manager <br /> Team TuDu B2
+		TuDu - Task Manager <br/> Team TuDu B2
 	</p>
 	<p>
 		GitHub repository:

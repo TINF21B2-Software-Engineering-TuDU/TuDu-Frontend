@@ -5,16 +5,10 @@ import jwt from 'jsonwebtoken';
 const createUser = async (email: string, password: string) => {
     // Check if user exists
     const user = await db.user.findUnique({
-        where: {
-            email
-        }
+        where: { email }
     });
 
-    if (user) {
-        return {
-            error: 'User already exists'
-        };
-    }
+    if (user) return { error: 'User already exists' };
 
     try {
         const user = await db.user.create({
@@ -26,34 +20,21 @@ const createUser = async (email: string, password: string) => {
 
         return { user };
     } catch (error) {
-        return {
-            error: 'Something went wrong'
-        };
+        return { error: 'Something went wrong' };
     }
 };
 
 const loginUser = async (email: string, password: string) => {
     // Check if user exists
     const user = await db.user.findUnique({
-        where: {
-            email
-        }
+        where: { email }
     });
 
-    if (!user) {
-        return {
-            error: 'Invalid credentials'
-        };
-    }
+    if (!user) return { error: 'Invalid credentials' };
 
     // Verify the password
     const passwordIsValid = await bcrypt.compare(password, user.password);
-
-    if (!passwordIsValid) {
-        return {
-            error: 'Invalid credentials'
-        };
-    }
+    if (!passwordIsValid) return { error: 'Invalid credentials' };
 
     const jwtUser = {
         id: user.id,

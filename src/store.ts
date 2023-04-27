@@ -5,8 +5,8 @@ import type { item } from "./entities";
 export let list_item = writable({
     name: "STANDARD_ITEM",
     isEditable: false,
-    due_date: new Date,
-    isFinished: false,
+    dueDate: new Date,
+    isCompleted: false,
     contents: null,
     creationDate: new Date
 } as item);

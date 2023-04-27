@@ -5,13 +5,9 @@
 </script>
 
 <div class="app">
-	<Header />
-
-	<main>
-		<slot />
-	</main>
-
-	<Footer />
+	<Header/>
+	<main><slot/></main>
+	<Footer/>
 </div>
 
 <style>

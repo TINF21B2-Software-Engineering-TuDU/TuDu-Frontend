@@ -4,8 +4,6 @@
 	export let data: PageData;
 
 	const { lists } = data;
-
-	let create_new_list = false;
 </script>
 
 <h1>Your Lists</h1>

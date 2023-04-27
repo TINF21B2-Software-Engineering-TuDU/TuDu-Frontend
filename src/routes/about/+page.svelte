@@ -12,15 +12,15 @@
 <hr />
 Contents of this storage:
 <ul>
-	<li>Documentations (while edited due to collaboration restrictions)</li>
-	<li>presentations</li>
-	<li>diagrams</li>
-	<li>other</li>
+	<li>Documents (while edited due to collaboration restrictions)</li>
+	<li>Presentations</li>
+	<li>Diagrams</li>
+	<li>Other</li>
 </ul>
 <hr />
 
 <p>
-	View Links to our documentations:<br>
+	View-Links to our documentations:<br>
 	<a href="https://1drv.ms/u/s!AuzT1lNsek0hqmnWxaw2eNzJhAhN?e=V0YWel" target="_blank">OneDrive</a><br>
 	<a href="https://github.com/TuDU-SE/documentation" target="_blank">GitHub</a>
 </p>
