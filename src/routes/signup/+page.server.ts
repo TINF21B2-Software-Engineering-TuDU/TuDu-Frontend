@@ -47,7 +47,7 @@ const signup: Action = async ({ request }) => {
 		return fail(400, { user: true, info: response.json.text });
 	}
 
-	// everythings good -> redirect to login
+	// everything is good -> redirect to login
 	throw redirect(302, '/login');
 };
 

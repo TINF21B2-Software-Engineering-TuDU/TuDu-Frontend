@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-	import { validators, HintGroup, Hint, email, required } from 'svelte-use-form';
-
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;

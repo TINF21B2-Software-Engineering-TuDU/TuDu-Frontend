@@ -10,8 +10,8 @@ export interface item {
 	group: list_group,
 	name: string,
 	isEditable: boolean,
-	due_date: Date,
-	isFinished: boolean,
+	dueDate: Date,
+	isCompleted: boolean,
 	contents?: string | null,
 	readonly creationDate: Date,
 }

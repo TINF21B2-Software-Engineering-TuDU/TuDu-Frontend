@@ -23,14 +23,11 @@ const getLogout = async (username?: string) => {
 export const actions: Actions = {
 	async default({ cookies, request }) {
 		// TODO: change form to load function from the hook
-		if (!username) {
+		if (!username)
 			throw redirect(302, "/main");
-		}
-		const logout = await getLogout(username);
 
-		if (logout.status >= 400) {
-			return redirect
-		}
+		const logout = await getLogout(username);
+		if (logout.status >= 400)  return redirect
 
 		// eat the cookie
 		await cookies.delete('auth_token');

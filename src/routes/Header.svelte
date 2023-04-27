@@ -39,7 +39,4 @@
 			padding: 12px 0;
 		}
 	}
-	/* .button_group {
-      margin: 5px;
-    } */
 </style>
