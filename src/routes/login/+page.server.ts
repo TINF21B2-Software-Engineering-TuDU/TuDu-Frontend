@@ -1,12 +1,15 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcrypt';
+import {PUBLIC_API_URL} from "$env/static/public";
+import jwt, {JsonWebTokenError} from "jsonwebtoken";
+import * as jose from 'jose';
 
 export const load: PageServerLoad = async () => {
 };
 
 const postLogin = async (username: string, password: string) => {
-	const response = await fetch('http://localhost:8080/auth/v1/login', {
+	const response = await fetch(PUBLIC_API_URL + '/auth/v1/login', {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
@@ -32,40 +35,30 @@ const login: Action = async ({ cookies, request }) => {
 		return fail(400, { invalid: true });
 	}
 
-	// hier user aus DB anfordern
-	const jsonData = await postLogin(username, password);
+	// request JWT from database
+	const response = await postLogin(username, password);
 
 	// error-handling
-	// if user already exists
-	// other error
-	if (jsonData.response.status >= 400) {
-		return fail(400, { credentials: true });
+	if (response.response.status >= 400 || !response.response.ok) {
+		return fail(response.response.status, { credentials: true });
 	}
 
-	if (jsonData.response.headers.get('set-cookie') == null) {
-		return fail(400, { credentials: true });
-	}
+	const {token: authentication_token} = response.json;
 
-	const tokens = jsonData.response.headers.get('set-cookie').split(' ');
-	const auth_token = tokens[0].slice(11).slice(0, -1);
-	const refresh_token = tokens[2].slice(14).slice(0, -1);
+	console.log(response.response);
+	console.log(response.json);
+	console.log(jwt.decode(authentication_token))
+	console.log(jose.decodeProtectedHeader(authentication_token))
+	console.log(jose.decodeJwt(authentication_token))
+	console.log(jose.base64url)
 
-	cookies.set('auth_token', auth_token, {
-		path: '/',
+	// Set JWT as cookie
+	cookies.set('AuthorizationToken', authentication_token, {
 		httpOnly: true,
-		sameSite: 'strict',
-		secure: process.env.NODE_ENV === 'production',
-		maxAge: 60 * 60 * 24 * 30
-		// domain: '127.0.0.1'
-	});
-
-	cookies.set('refresh_token', refresh_token, {
 		path: '/',
-		httpOnly: true,
+		secure: true,
 		sameSite: 'strict',
-		secure: process.env.NODE_ENV === 'production',
-		maxAge: 60 * 60 * 24 * 30
-		// domain: '127.0.0.1'
+		maxAge: 60 * 60 * 24 * 30 // = 30 days
 	});
 
 	// redirect the user
