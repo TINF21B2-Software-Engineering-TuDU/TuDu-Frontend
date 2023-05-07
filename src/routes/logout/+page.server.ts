@@ -26,11 +26,13 @@ export const actions: Actions = {
         console.log("User Logout")
         const auth_token = JSON.stringify({token: cookies.get('AuthorizationToken')})
 
+        /* API currently does not support a logout
         const logout = await getLogout(auth_token);
         if (logout.status >= 400) {
             // display error message in separate page
             return redirect(302, '/main')
         }
+        */
 
         // reset user data
         locals.user = {
@@ -38,8 +40,6 @@ export const actions: Actions = {
             isLoggedIn: false,
             loginTime: new Date(),
         };
-
-        console.log(locals.user)
 
         // eat the cookie
         await cookies.delete('AuthorizationToken');

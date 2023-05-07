@@ -29,14 +29,12 @@ const getUser = async (auth_token: string) => {
 };
 
 export const handle: Handle = async ({event, resolve}) => {
+    const session = event.cookies.get('AuthorizationToken');
     const user = event.locals.user;
 
-    if (user) { // user exists: go on
+    if (user && session) { // user & session cookie exists: go on
         return await resolve(event);
     }
-
-    // read session cookie
-    const session = event.cookies.get('AuthorizationToken');
 
     if (!session) { // no session: user needs to login
         event.locals.user = {
@@ -47,8 +45,7 @@ export const handle: Handle = async ({event, resolve}) => {
         return await resolve(event);
     }
 
-    // user info retrieved, set local user
-    let email: any;
+    let email: string;
     ({email} = jwt.decode(<string>event.cookies.get('AuthorizationToken'))['auth']['email']);
     event.locals.user = {
         username: email,
