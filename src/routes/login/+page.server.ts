@@ -1,9 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
-import bcrypt from 'bcrypt';
 import {PUBLIC_API_URL} from "$env/static/public";
-import jwt, {JsonWebTokenError} from "jsonwebtoken";
-import * as jose from 'jose';
 
 export const load: PageServerLoad = async () => {
 };
@@ -44,13 +41,6 @@ const login: Action = async ({ cookies, request }) => {
 	}
 
 	const {token: authentication_token} = response.json;
-
-	console.log(response.response);
-	console.log(response.json);
-	console.log(jwt.decode(authentication_token))
-	console.log(jose.decodeProtectedHeader(authentication_token))
-	console.log(jose.decodeJwt(authentication_token))
-	console.log(jose.base64url)
 
 	// Set JWT as cookie
 	cookies.set('AuthorizationToken', authentication_token, {
