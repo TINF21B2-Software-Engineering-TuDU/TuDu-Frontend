@@ -1,10 +1,11 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { Action, Actions } from '../$types';
+import type { Action, Actions } from './$types';
+import { PUBLIC_API_URL } from '$env/static/public';
 
 const postNewList = async (title: string, descrption: string) => {
-	const response = await fetch('http://localhost:8080/api/v1/list', {
+	const response = await fetch(PUBLIC_API_URL+'/api/v1/list', {
 		method: 'POST',
-		body: JSON.stringify({ title: title, descrption: descrption })
+		body: JSON.stringify({ title: title })
 	});
 	if (response.headers.get('content-type')?.includes('application/json')) {
 		const json = await response.json();
@@ -33,7 +34,7 @@ const createList: Action = async ({ request }) => {
 		return fail(400, { invalid: true });
 	}
 
-	throw redirect(302, '/main/lists/');
+	throw redirect(302, '/main');
 };
 
 export const actions: Actions = { createList };

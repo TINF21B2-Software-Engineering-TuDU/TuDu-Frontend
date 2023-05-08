@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"bcrypt": "^5.1.0",
+		"jose": "^4.14.4",
 		"jsonwebtoken": "^9.0.0"
 	}
 }
