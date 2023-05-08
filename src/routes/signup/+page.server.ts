@@ -1,6 +1,7 @@
 import type { Action, Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import bcrypt from 'bcrypt';
+import {PUBLIC_API_URL} from "$env/static/public";
 
 const numSaltRound = 8;
 
@@ -9,7 +10,7 @@ export const load: PageServerLoad = async () => {
 };
 
 const postSignUp = async (username: string, hashedPassword: Promise<string>) => {
-	const response = await fetch('http://localhost:8080/auth/v1/register', {
+	const response = await fetch(PUBLIC_API_URL + '/auth/v1/register', {
 		method: 'POST',
 		headers: {
 			Accept: 'application/json',
@@ -44,7 +45,7 @@ const signup: Action = async ({ request }) => {
 	// error-handling:
 	// - if user already exists - other error
 	if (response.response.status >= 400 || !response.response.ok) {
-		return fail(400, { user: true, info: response.json.text });
+		return fail(response.response.status, { user: true, info: response.json.text });
 	}
 
 	// everything is good -> redirect to login

@@ -9,7 +9,7 @@
 		<a href="/user">{$page.data.user.username}</a>
 		<a href="/about">About</a>
 		{#if $page.data.user.isLoggedIn}
-			<a href="/logout/{$page.data.user.username}">Logout</a>
+			<a href="/logout">Logout</a>
 		{:else}
 			<a href="/login">Login</a><a href="/signup">Sign Up</a>
 		{/if}

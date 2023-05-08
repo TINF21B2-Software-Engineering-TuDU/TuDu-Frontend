@@ -4,9 +4,6 @@
 	export let data: PageData;
 
 	const { user } = data;
-
-	console.log(data);
-	console.log(user);
 </script>
 
 <h1>User Information</h1>
