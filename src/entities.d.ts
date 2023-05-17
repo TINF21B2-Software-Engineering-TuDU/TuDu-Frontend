@@ -5,9 +5,9 @@ export interface User {
 	isLoggedIn: boolean
 }
 
-export interface item {
+export interface Item {
 	readonly id: int,
-	group: list_group,
+	list: int,
 	name: string,
 	isEditable: boolean,
 	dueDate: Date,
@@ -16,8 +16,9 @@ export interface item {
 	readonly creationDate: Date,
 }
 
-export interface list_group {
+export interface List {
 	readonly id: int,
 	name: string,
-	items: [item]
+	description: string,
+	items: [Item] | null
 }

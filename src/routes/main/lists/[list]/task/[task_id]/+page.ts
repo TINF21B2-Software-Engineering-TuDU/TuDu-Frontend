@@ -1,11 +1,12 @@
 import type { PageLoad } from './$types';
 import { page } from '$app/stores';
+import { PUBLIC_API_URL } from '$env/static/public';
 
 export const load = (async ({ fetch, params }) => {
-	const taskResponse = await fetch(`http://localhost:8080/api/v1/tasks/${params.task_id}`);
+	const taskResponse = await fetch(`${PUBLIC_API_URL}/api/v1/tasks/${params.task_id}`);
 	console.log(taskResponse);
 	if (taskResponse.status >= 400) {
-		let test = { id: 1, title: 'None', description: 'None', list: 1 };
+		const test = {id: 1, creationDate: new Date, dueDate: new Date, list: 1, isCompleted: false, isEditable: true, name: "Do something"};
 		return { task: test };
 	}
 	const taskData = await taskResponse.json();

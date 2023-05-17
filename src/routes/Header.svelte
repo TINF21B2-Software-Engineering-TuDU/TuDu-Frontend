@@ -6,7 +6,7 @@
 	<nav>
 		<a href="/">Home</a>
 		<a href="/main">Main</a>
-		<a href="/user">{$page.data.user.username}</a>
+		<a href="/user"><img src="/src/lib/images/user_icon.png" alt="user profile pic.">{$page.data.user.username}</a>
 		<a href="/about">About</a>
 		{#if $page.data.user.isLoggedIn}
 			<a href="/logout">Logout</a>
@@ -38,5 +38,10 @@
 		header {
 			padding: 12px 0;
 		}
+	}
+
+	img {
+		width: 20px;
+		height: 20px;
 	}
 </style>

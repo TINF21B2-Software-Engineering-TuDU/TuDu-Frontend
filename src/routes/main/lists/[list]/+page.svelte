@@ -4,20 +4,20 @@
 	export let data: PageData;
 
 	const { list } = data;
-
-	console.log(data);
 </script>
 
-<h1>{list.title} #{list.id}</h1>
-<a href="/main">Back</a>
+<h1>{list.name} #{list.id}</h1>
 <p>{list.description}</p>
+<a class="button" href="/main">Back</a>
 
 <div class="tasks">
 	<h2>TuDu's:</h2>
-	{#each list.tasks as task}
-	<div class="task">
-		<a href='/main/lists/{list.id}/{task.id}'><p>{task.id}</p></a>
-	</div>
+	{#each list.items as task}
+	<a href='/main/lists/{list.id}/{task.id}'>
+		<div class="task">
+			<p>{task.name} #{task.id}</p>	
+		</div>
+	</a>
 	{/each}
 </div>
 
