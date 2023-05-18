@@ -1,11 +1,12 @@
 import Landing from "../../routes/+page.svelte";
-import { mock } from "vitest-mock-extended";
 
 describe("Landing Text", () => {
     const mockResponse = {
         data: {
             user: {
-                name: "Niklas"
+                name: "User",
+                isLoggedIn: true,
+                loginTime: new Date
             }
         }
     };
@@ -24,6 +25,6 @@ describe("Landing Text", () => {
         expect(instance).toBeTruthy();
 
         // Test if landing text in host
-        expect(host.innerHTML).toContain("Welcome to our landing page!")
+        expect(host.innerHTML).toContain("Welcome to our landing page!");
     });
 })
