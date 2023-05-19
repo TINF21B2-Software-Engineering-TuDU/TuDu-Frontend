@@ -67,6 +67,9 @@
 
 		/* circle */
 		border-radius: 50%;
+
+		/* margin */
+		margin:5px;
 	}
 	.checkmark {
 		/* Center checkmark in circle */

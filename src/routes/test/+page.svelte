@@ -6,5 +6,9 @@
 
 <!-- ICON -->
 <Icon name="RECURRENCE"/>
-<Checkbox checked/>
-<Checkbox/>
+
+<!--  horizontal flexbox -->
+<div style="display: flex; flex-direction: row;">
+    <Checkbox checked/>
+    <Checkbox/>
+</div>
