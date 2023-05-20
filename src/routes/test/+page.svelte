@@ -3,6 +3,7 @@
     import Icon from '$lib/components/Icon.svelte';
     import Checkbox from '$lib/components/Checkbox.svelte';
     import Logo from '$lib/components/Logo.svelte';
+    import Divider from '$lib/components/Divider.svelte';
 </script>
 
 <!-- ICON -->
@@ -21,3 +22,7 @@
     <Logo label={false}/>
     <Logo label={false} integrated={false}/>
 </div>
+
+<!-- Divider -->
+<Divider/>
+<Divider/>
