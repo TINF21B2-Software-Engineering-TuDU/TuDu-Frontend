@@ -7,8 +7,8 @@ export interface User {
 
 export interface Item {
 	readonly id: int,
-	list: int,
-	name: string,
+	list_id: int,
+	title: string,
 	isEditable: boolean,
 	dueDate: Date,
 	isCompleted: boolean,

@@ -3,7 +3,7 @@ import type { Item, List } from "./entities";
 
 // use this writable when working with a single item
 export let current_item = writable({
-    name: "STANDARD_ITEM",
+    title: "STANDARD_ITEM",
     isEditable: false,
     dueDate: new Date,
     isCompleted: false,
