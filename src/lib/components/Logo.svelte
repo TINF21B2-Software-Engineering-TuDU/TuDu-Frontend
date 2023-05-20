@@ -44,7 +44,7 @@
 			</svg>
 		</div>
 	{:else}
-		<img src="/TUDU.svg" alt="TUDU Logo" />
+		<img src="/components/TUDU.svg" alt="TUDU Logo" />
 	{/if}
 
 	{#if label}
