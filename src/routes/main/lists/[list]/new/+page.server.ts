@@ -1,11 +1,16 @@
 import { fail, redirect } from '@sveltejs/kit';
-import type { Action, Actions } from '../$types';
+import type { Action, Actions, PageServerLoad } from './$types';
+import { PUBLIC_API_URL } from '$env/static/public';
+
+export const load: PageServerLoad = async () => {
+	// nothin needs to happen here
+}
 
 // TODO: change to create new task endpoint
-const postNewList = async (title: string, descrption: string) => {
-	const response = await fetch('http://localhost:8080/api/v1/list', {
+const postNewList = async (title: string, email: string) => {
+	const response = await fetch(`${PUBLIC_API_URL}/api/v1/list`, {
 		method: 'POST',
-		body: JSON.stringify({ title: title, descrption: descrption })
+		body: JSON.stringify({ email: email, title: title })
 	});
 	if (response.headers.get('content-type')?.includes('application/json')) {
 		const json = await response.json();
@@ -15,22 +20,24 @@ const postNewList = async (title: string, descrption: string) => {
 	}
 };
 
-const createList: Action = async ({ request }) => {
+const createList: Action = async ({ request, locals }) => {
 	const data = await request.formData();
 	const title = data.get('title');
 	const descrption = data.get('description');
 
+	// check input
 	if (typeof title !== 'string' || typeof descrption !== 'string' || !title || !descrption) {
 		return fail(400, { invalid: true });
 	}
 
-	// hier user aus DB anfordern
-	const jsonData = await postNewList(title, descrption);
-
+	// POST request
+	const response = await postNewList(title, locals.user.username);
+	console.log(response);
+	
 	// error-handling
 	// if user already exists
 	// other error
-	if (jsonData.response.status >= 400) {
+	if (response.response.status >= 400 || !response.response.ok) {
 		return fail(400, { invalid: true });
 	}
 

@@ -1,20 +1,19 @@
 <script lang="ts">
-	import type { ActionData } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let form: ActionData;
+
+    export let data: PageData;
+
+    const { list_id } = data;
 </script>
 
-<h1>Create new list</h1>
+<h1>Create new task for list {list_id}</h1>
 
-<form action="/main/lists/new" method="post">
+<form action="/main/lists/new" method="POST">
 	<div>
 		<label for="title">Title:</label>
 		<input type="text" id="title" name="title" required />
-	</div>
-
-	<div>
-		<label for="description">Description:</label>
-		<input type="text" id="description" name="description" required />
 	</div>
 
 	{#if form?.invalid}
