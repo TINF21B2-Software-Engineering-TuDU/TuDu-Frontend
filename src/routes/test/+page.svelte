@@ -4,7 +4,8 @@
 	import Checkbox from '$lib/components/Checkbox.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Divider from '$lib/components/Divider.svelte';
-    import ListTab from '$lib/components/ListTab.svelte';
+	import ListTab from '$lib/components/ListTab.svelte';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
 <!-- ICON -->
@@ -34,8 +35,21 @@
 
 <!-- List Tab -->
 <div style="display: flex; flex-direction: column; gap: 10px;">
-    <ListTab selected />
-    <ListTab selected color='blue' />
-    <ListTab />
-    <ListTab type="add"/>
+	<ListTab selected />
+	<ListTab selected color="blue" />
+	<ListTab />
+	<ListTab type="add" />
+</div>
+
+<Divider />
+
+<!-- Button -->
+<div style="display: flex; flex-direction: column; gap: 10px;">
+	<Button
+		label="This is a custom Label"
+		onclick={() => {
+			alert('yay!');
+		}}
+	/>
+	<Button />
 </div>
