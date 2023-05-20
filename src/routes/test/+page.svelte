@@ -4,6 +4,7 @@
 	import Checkbox from '$lib/components/Checkbox.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+    import ListTab from '$lib/components/ListTab.svelte';
 </script>
 
 <!-- ICON -->
@@ -30,3 +31,11 @@
 <!-- Divider -->
 <Divider />
 <Divider />
+
+<!-- List Tab -->
+<div style="display: flex; flex-direction: column; gap: 10px;">
+    <ListTab selected />
+    <ListTab selected color='blue' />
+    <ListTab />
+    <ListTab type="add"/>
+</div>
