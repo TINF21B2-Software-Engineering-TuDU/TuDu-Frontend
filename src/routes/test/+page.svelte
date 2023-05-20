@@ -9,7 +9,7 @@
 </script>
 
 <!-- ICON -->
-<Icon name="RECURRENCE" />
+<Icon name="RECURRENCE" width='30px'/>
 
 <!-- Checkboxes -->
 <div style="display: flex; flex-direction: row;">

@@ -1,18 +1,12 @@
 <script>
 	let name = '';
+    export let width = "15px";
     export { name };
 </script>
 
-<style>
-    .icon {
-        width: 30px;
-        height: 30px;
-    }
-</style>
-
 {#if name === ''}
 	<!-- error image -->
-	<img class="icon" src="https://i.imgur.com/8Lg5ZtJ.png" alt="error" />
+	<img src="https://i.imgur.com/8Lg5ZtJ.png" alt="error" style="width: {width}; height: {width};"/>
 {:else}
-    <img class="icon" src="/icons/{name}.png" alt="{name}">
+    <img src="/icons/{name}.png" alt="{name}" style="width: {width}; height: {width};">
 {/if}
