@@ -1,12 +1,19 @@
 import { writable } from "svelte/store";
-import type { item } from "./entities";
+import type { Item, List } from "./entities";
 
-// eslint-disable-next-line prefer-const
-export let list_item = writable({
-    name: "STANDARD_ITEM",
+// use this writable when working with a single item
+export let current_item = writable({
+    title: "STANDARD_ITEM",
     isEditable: false,
     dueDate: new Date,
     isCompleted: false,
     contents: null,
     creationDate: new Date
-} as item);
+} as Item);
+
+// use this writable when working with a single list
+export let current_list = writable({
+    id: 0,
+    items: null,
+    name: "STANDARD_LIST"
+} as List);

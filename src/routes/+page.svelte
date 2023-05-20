@@ -14,8 +14,8 @@
 <section>
 	<h1>Welcome to our landing page!</h1>
 	{#if user.isLoggedIn}
-		<p>You can view your lists and tasks here!</p>
+		<p>Here you can view your <a href="/main">lists</a> and <a href="/main/lists/0">tasks</a>!</p>
 	{:else}
-		<p>Please <a href="/login">login here</a> or <a href="/signup">sign up</a>.</p>
+		<p>Please <a href="/login">login</a> or <a href="/signup">sign up</a>.</p>
 	{/if}
 </section>
