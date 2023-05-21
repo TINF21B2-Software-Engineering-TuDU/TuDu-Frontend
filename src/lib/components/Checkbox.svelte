@@ -1,9 +1,15 @@
 <script>
 	export let checked = false;
 	let check = () => (checked = !checked);
+	let enter = (/** @type {{ key: string; }} */ e) => {
+		if (e.key === 'Enter' || e.key === 'Space' || e.key === ' ') {
+			check();
+		}
+	};
 </script>
 
-<div on:click={check} on:keydown={check} class="bg">
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<div on:click={check} on:keydown={enter} class="bg content" tabindex=0>
 	{#if checked === true}
 		<svg
 			class="checkmark"
@@ -59,6 +65,9 @@
 	.bg {
 		width: 37px;
 		height: 37px;
+
+		min-width: 37px;
+		min-height: 37px;
 
 		/* Text DarkBG */
 		background: #e9e9e9;

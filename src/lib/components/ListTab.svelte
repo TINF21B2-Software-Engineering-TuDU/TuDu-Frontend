@@ -83,21 +83,4 @@
 		flex: none;
 		flex-grow: 0;
 	}
-
-	.label {
-		height: 40px;
-
-		/* Text */
-		font-family: 'Ubuntu';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 16px;
-		line-height: 18px;
-		display: flex;
-		align-items: center;
-
-		/* Inside auto layout */
-		flex: none;
-		flex-grow: 1;
-	}
 </style>

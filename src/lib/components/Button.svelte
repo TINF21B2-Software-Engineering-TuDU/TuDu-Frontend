@@ -21,19 +21,6 @@
 	}
 
 	input {
-		/* Text */
-		font-family: 'Ubuntu', sans-serif, 'Roboto';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 16px;
-		line-height: 18px;
-		display: flex;
-		align-items: center;
-		text-align: center;
-
-		/* Text LightBG */
-		color: #e9e9e9;
-
 		/* FieldBG */
 		background: #686868;
 		border-radius: 5px;
@@ -55,5 +42,13 @@
 
 		/* FieldBG */
 		background: #e9e9e9;
+	}
+
+	input:active {
+		/* Text LightBG */
+		color: #686868;
+
+		/* FieldBG */
+		background: #b1b1b1;
 	}
 </style>

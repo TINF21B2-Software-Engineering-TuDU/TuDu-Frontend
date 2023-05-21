@@ -7,7 +7,7 @@
 </script>
 
 <div class="content">
-	<Icon name={icon} width="15px" />
+	<Icon name={icon} width="18px" />
 	<input type="text" {placeholder} {value} />
 </div>
 
@@ -28,17 +28,8 @@
 	}
 
 	input {
-		/* Text */
-		font-family: 'Ubuntu';
-		font-style: normal;
-		font-weight: 400;
-		font-size: 16px;
-		line-height: 18px;
-		display: flex;
-		align-items: center;
-
-		/* Text darkBG */
-		color: #e9e9e9;
+		/* Text LightBG */
+		color: #686868;
 
 		/* Inside auto layout */
 		flex: none;
@@ -50,6 +41,6 @@
 	}
 
 	input::placeholder {
-		color: #686868;
+		color: #4F80E1;
 	}
 </style>
