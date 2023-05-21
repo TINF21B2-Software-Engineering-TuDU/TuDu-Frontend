@@ -94,3 +94,17 @@ h4 {
 	flex: none;
 	flex-grow: 1;
 }
+
+/* Links */
+a {
+	color: #E9E9E9;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #B1B1B1;
+}
+
+a:focus {
+	outline: 1px solid #B1B1B1;
+}
