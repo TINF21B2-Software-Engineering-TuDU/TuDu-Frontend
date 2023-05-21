@@ -5,9 +5,7 @@
 	};
 </script>
 
-<div class="content">
-	<input type="button" value={label} on:click={onclick} />
-</div>
+<input class="content" type="button" value={label} on:click={onclick} />
 
 <style>
 	.content {
@@ -18,8 +16,8 @@
 		padding: 0px 15px;
 		gap: 15px;
 
-        height: 45px;
-        width: 100%;
+		height: 45px;
+		width: 100%;
 	}
 
 	input {
@@ -35,12 +33,12 @@
 
 		/* Text LightBG */
 		color: #e9e9e9;
-		
+
 		/* FieldBG */
 		background: #686868;
 		border-radius: 5px;
 
-        border: none;
+		border: none;
 
 		/* Inside auto layout */
 		flex: none;
