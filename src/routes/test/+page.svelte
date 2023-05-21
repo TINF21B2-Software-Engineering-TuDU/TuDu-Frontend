@@ -7,6 +7,7 @@
 	import ListTab from '$lib/components/ListTab.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+	import TextArea from '$lib/components/TextArea.svelte';
 </script>
 
 <!-- ICON -->
@@ -60,7 +61,7 @@
 <!-- TextInput -->
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
-	<TextInput/>
+	<TextInput />
 	<TextInput placeholder="Recurrence mode" icon="RECURRENCE" />
 </div>
 
@@ -76,8 +77,19 @@
 
 <!-- Paragraph -->
 <p>
-	Duis quis nisi non exercitation excepteur ut nulla tempor labore in cupidatat. Ullamco exercitation elit quis ipsum. Cillum dolore adipisicing do eiusmod nisi cupidatat reprehenderit duis sunt sunt aute incididunt et dolore.
+	Duis quis nisi non exercitation excepteur ut nulla tempor labore in cupidatat. Ullamco
+	exercitation elit quis ipsum. Cillum dolore adipisicing do eiusmod nisi cupidatat reprehenderit
+	duis sunt sunt aute incididunt et dolore.
 </p>
 
 <!-- Just text -->
-Nulla adipisicing voluptate do irure adipisicing non deserunt. Occaecat nostrud velit ut incididunt sit. Reprehenderit sint amet nulla commodo nulla fugiat sint magna labore dolore anim aliqua velit. Irure Lorem magna ex ex. Excepteur quis aliquip mollit consequat laboris sint dolore non ullamco aliquip aliqua id dolore cupidatat. Sunt cillum mollit amet sunt ex do. Pariatur amet sint irure ex enim do veniam excepteur cupidatat.
+Nulla adipisicing voluptate do irure adipisicing non deserunt. Occaecat nostrud velit ut incididunt sit.
+Reprehenderit sint amet nulla commodo nulla fugiat sint magna labore dolore anim aliqua velit. Irure
+Lorem magna ex ex. Excepteur quis aliquip mollit consequat laboris sint dolore non ullamco aliquip aliqua
+id dolore cupidatat. Sunt cillum mollit amet sunt ex do. Pariatur amet sint irure ex enim do veniam excepteur
+cupidatat.
+
+<Divider />
+
+<!-- TextArea -->
+<TextArea />
