@@ -15,6 +15,32 @@ input:focus {
 	outline: 1px solid #e9e9e9;
 }
 
+
+/* Text */
+
+body * {
+	font-family: 'Ubuntu', sans-serif;
+	;
+	font-size: 20px;
+	line-height: 24px;
+	font-weight: 400;
+
+	color: #E9E9E9;
+}
+
+.label {
+	height: 40px;
+
+	/* Text */
+	font-size: 16px;
+	display: flex;
+	align-items: center; 
+
+	/* Inside auto layout */
+	flex: none;
+	flex-grow: 1;
+}
+
 /* Headings */
 h1 {
 	/* Logo font */
@@ -68,31 +94,6 @@ h4 {
 
 	/* Text LightBG */
 	color: #686868;
-}
-
-/* All other text */
-
-:root * {
-	font-family: 'Ubuntu', sans-serif;
-	;
-	font-size: 20px;
-	line-height: 24px;
-	font-weight: 400;
-
-	color: #E9E9E9;
-}
-
-.label {
-	height: 40px;
-
-	/* Text */
-	font-size: 16px;
-	display: flex;
-	align-items: center; 
-
-	/* Inside auto layout */
-	flex: none;
-	flex-grow: 1;
 }
 
 /* Links */
