@@ -58,6 +58,17 @@
 
 <Divider />
 
+<!-- Button Types -->
+
+<!-- grid of 2x2 buttons -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+	<Button label="Default" />
+	<Button label="Confirm" type="confirm" />
+	<Button label="Delete" type="delete" />
+</div>
+
+<Divider />
+
 <!-- TextInput -->
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
