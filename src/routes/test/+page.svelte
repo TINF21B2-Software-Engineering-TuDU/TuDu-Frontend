@@ -6,10 +6,11 @@
 	import Divider from '$lib/components/Divider.svelte';
 	import ListTab from '$lib/components/ListTab.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
 </script>
 
 <!-- ICON -->
-<Icon name="RECURRENCE" width='30px'/>
+<Icon name="RECURRENCE" width="30px" />
 
 <!-- Checkboxes -->
 <div style="display: flex; flex-direction: row;">
@@ -52,4 +53,13 @@
 		}}
 	/>
 	<Button />
+</div>
+
+<Divider />
+
+<!-- TextInput -->
+
+<div style="display: flex; flex-direction: column; gap: 10px;">
+	<TextInput/>
+	<TextInput placeholder="Recurrence mode" icon="RECURRENCE" />
 </div>
