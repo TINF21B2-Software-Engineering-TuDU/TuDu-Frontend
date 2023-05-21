@@ -93,3 +93,12 @@ div.outline {
 	line-height: 1.2;
 	width: 100%;
 }
+
+/* General component rules */
+input:focus {
+	outline: none;
+}
+
+.content:focus-within {
+	outline: 1px solid #e9e9e9;
+}

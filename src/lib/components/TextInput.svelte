@@ -27,10 +27,6 @@
 		border-radius: 5px;
 	}
 
-    .content:focus-within {
-        outline: 1px solid #e9e9e9;
-    }
-
 	input {
 		/* Text */
 		font-family: 'Ubuntu';
@@ -51,10 +47,6 @@
 
 		background: none;
 		border: none;
-	}
-
-	input:focus {
-		outline: none;
 	}
 
 	input::placeholder {
