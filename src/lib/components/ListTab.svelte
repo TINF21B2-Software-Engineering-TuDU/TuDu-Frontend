@@ -5,7 +5,35 @@
 	export let selected = false;
 	export let color = '#18CDCA';
 
-	import Icon from '$lib/components/Icon.svelte';
+	// on click and enter events
+	// @ts-ignore
+	export let onclick = (click) => {
+		// if edit icon is clicked, do nothing
+		if (click.target.tagName === 'IMG') {
+			return;
+		}
+
+		alert('No onclick handler defined');
+	};
+
+	// dispatch click event on enter
+	const handleEnter = (/** @type {{ key: string; }} */ event) => {
+		if (event.key === 'Enter') {
+			onclick();
+		}
+	};
+
+	// on edit event
+	export let onedit = () => {
+		alert('No onedit handler defined');
+	};
+
+	// dispatch edit event on enter on edit icon
+	const handleEdit = (/** @type {{ key: string; }} */ event) => {
+		if (event.key === 'Enter') {
+			onedit();
+		}
+	};
 
 	let outline = '1px solid red';
 
@@ -22,7 +50,8 @@
     $: labelcolor = type === 'add' ? '#686868' : labelcolor;
 </script>
 
-<div id="list-tab" style="border: {outline}">
+<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+<div id="list-tab" class="content" style="border: {outline}" tabindex="0" on:click={onclick} on:keydown={handleEnter}>
 	{#if type === 'default'}
 		<div class="accent" style="border: 2.5px solid {color};" />
 	{:else}
@@ -30,7 +59,7 @@
 	{/if}
 
 	{#if type === 'default'}
-		<div class="marker" style="background: {color};" />
+			<div class="marker actual" style="background: {color};" />
 	{:else}
 		<img src="/icons/ADD.png" alt="Add" style="width: 10px;" />
 	{/if}
@@ -38,7 +67,7 @@
 	<div class="label" style="color: {labelcolor}">{label}</div>
 
 	{#if selected}
-		<img src="/icons/EDIT.png" alt="Edit" style="width: 15px;" />
+		<img src="/icons/EDIT.png" alt="Edit" style="width: 15px;" tabindex="0" on:click={onedit} on:keydown={handleEdit} />
 	{/if}
 </div>
 
@@ -83,4 +112,14 @@
 		flex: none;
 		flex-grow: 0;
 	}
+
+	#list-tab:hover {
+		cursor: pointer;
+	}
+
+	#list-tab:hover .marker {
+		opacity: 0.5;
+	}
+
+
 </style>
