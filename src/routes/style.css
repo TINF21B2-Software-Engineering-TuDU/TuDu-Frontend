@@ -11,6 +11,11 @@ input:focus {
 	outline: none;
 }
 
+.content {
+	/* rounded corners */
+	border-radius: 5px;
+}
+
 .content:focus-within {
 	outline: 1px solid #e9e9e9;
 }

@@ -8,6 +8,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import TextArea from '$lib/components/TextArea.svelte';
+	import DropdownInput from '$lib/components/DropdownInput.svelte';
 </script>
 
 <!-- ICON -->
@@ -104,3 +105,8 @@ cupidatat.
 
 <!-- TextArea -->
 <TextArea />
+
+<Divider />
+
+<!-- DropdownInput -->
+<DropdownInput />
