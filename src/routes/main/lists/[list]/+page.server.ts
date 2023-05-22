@@ -2,6 +2,7 @@ import { PUBLIC_API_URL } from "$env/static/public";
 import type { List, Task } from "../../../../entities";
 import type { PageLoad } from "../../../$types";
 import { fail } from "@sveltejs/kit";
+import { TOKEN, TOKEN_BEARER } from "$env/static/private";
 
 export const load = (async ({fetch, params}) => {
 	const listResponse = await fetch(`${PUBLIC_API_URL}/api/v1/list/${params.list}`);
@@ -44,7 +45,7 @@ export const actions = {
 		}	
 		temp.push(encodeURIComponent("contents") + "=" + encodeURIComponent(contents));
 		temp.push(encodeURIComponent("list_id") + "=" + encodeURIComponent(listId));
-		temp.push(encodeURIComponent("token")+"="+encodeURIComponent(cookies.get('AuthorizationToken')))
+		temp.push(encodeURIComponent("token")+"="+encodeURIComponent(cookies.get(TOKEN)))
 		let formBody = temp.join("&");
 
 		const response = await fetch(`${PUBLIC_API_URL}/api/v1/tasks/`, {
@@ -55,7 +56,7 @@ export const actions = {
 			},
 			body: formBody
 		});
-		console.log(response)
+
 		if (response.ok) {
 			return { success: true };
 		} else {

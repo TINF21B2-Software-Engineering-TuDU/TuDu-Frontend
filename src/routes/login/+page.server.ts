@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import {PUBLIC_API_URL} from "$env/static/public";
+import { TOKEN, TOKEN_BEARER } from '$env/static/private';
 
 export const load: PageServerLoad = async () => {
 };
@@ -41,9 +42,19 @@ const login: Action = async ({ cookies, request }) => {
 	}
 
 	const {token: authentication_token} = response.json;
+	const authentication_token_bearer = "Bearer " + authentication_token;
 
-	// Set JWT as cookie
-	cookies.set('AuthorizationToken', authentication_token, {
+	// Set JWT
+	cookies.set(TOKEN, authentication_token, {
+		httpOnly: true,
+		path: '/',
+		secure: true,
+		sameSite: 'strict',
+		maxAge: 60 * 60 * 24 * 30 // = 30 days
+	});
+
+	// Set Bearer Token
+	cookies.set(TOKEN_BEARER, authentication_token_bearer, {
 		httpOnly: true,
 		path: '/',
 		secure: true,

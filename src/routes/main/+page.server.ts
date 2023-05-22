@@ -1,6 +1,7 @@
 import { PUBLIC_API_URL } from '$env/static/public';
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageLoad } from '../$types';
+import { TOKEN, TOKEN_BEARER } from '$env/static/private';
 
 export const load = (async ({ fetch, locals }) => {
 	if (!locals.user.isLoggedIn) {
@@ -31,7 +32,7 @@ export const actions = {
 		let temp = [];
 		temp.push(encodeURIComponent("email") + "=" + encodeURIComponent(email));
 		temp.push(encodeURIComponent("list_name") + "=" + encodeURIComponent(title));
-		temp.push(encodeURIComponent("token")+"="+encodeURIComponent(cookies.get('AuthorizationToken')))
+		temp.push(encodeURIComponent("token")+"="+encodeURIComponent(cookies.get(TOKEN)));
 		let formBody = temp.join("&");
 
 		const response = await fetch(`${PUBLIC_API_URL}/api/v1/list/`, {
