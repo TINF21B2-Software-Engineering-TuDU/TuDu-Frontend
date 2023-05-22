@@ -5,20 +5,21 @@ export interface User {
 	isLoggedIn: boolean
 }
 
-export interface Item {
-	readonly id: int,
-	list_id: int,
+export interface Task {
+	readonly user_id: int,
+	readonly list_id: int,
+	readonly task_id: int,
 	title: string,
-	isEditable: boolean,
-	dueDate: Date,
-	isCompleted: boolean,
+	iseditable: boolean,
+	iscompleted: boolean,
+	duedate: Date,
 	contents?: string | null,
-	readonly creationDate: Date,
+	readonly creationdate: Date,
 }
 
 export interface List {
-	readonly id: int,
-	name: string,
-	description: string,
-	items: [Item] | null
+	readonly list_id: int,
+	readonly user_id: int,
+	list_name: string,
+	description: string
 }

@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import type { Item, List } from "./entities";
+import type { Task, List } from "./entities";
 
 // use this writable when working with a single item
 export let current_item = writable({
@@ -8,8 +8,8 @@ export let current_item = writable({
     dueDate: new Date,
     isCompleted: false,
     contents: null,
-    creationDate: new Date
-} as Item);
+    creationdate: new Date
+} as Task);
 
 // use this writable when working with a single list
 export let current_list = writable({
