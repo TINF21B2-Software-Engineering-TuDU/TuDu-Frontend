@@ -12,13 +12,26 @@
 </script>
 
 <!-- ICON -->
-<Icon name="RECURRENCE" width="30px" />
+<Icon name="RECURRENCE" width="30px" interactive />
+
+<!-- Grid with different sized icons and icons with other icons and icons with actions -->
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+	<Icon name="RECURRENCE" width="30px" />
+	<Icon name="CALENDAR" width="50px" />
+	<Icon name="SEARCH" width="70px" />
+	<Icon name="ADD" width="30px" interactive />
+	<Icon name="ARROW" width="30px" interactive onclick={() => alert('Icons are buttons now!')} />
+</div>
+
+<Divider />
 
 <!-- Checkboxes -->
 <div style="display: flex; flex-direction: row;">
 	<Checkbox checked />
 	<Checkbox />
 </div>
+
+<Divider />
 
 <!-- Logo -->
 <div style="display: flex; flex-direction: column;">
@@ -110,3 +123,4 @@ cupidatat.
 
 <!-- DropdownInput -->
 <DropdownInput />
+
