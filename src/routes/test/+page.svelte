@@ -9,12 +9,12 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import TextArea from '$lib/components/TextArea.svelte';
 	import DropdownInput from '$lib/components/DropdownInput.svelte';
+	import DateInput from '$lib/components/DateInput.svelte';
 </script>
 
 <!-- ICON -->
 <Icon name="RECURRENCE" width="30px" interactive />
 
-<!-- Grid with different sized icons and icons with other icons and icons with actions -->
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
 	<Icon name="RECURRENCE" width="30px" />
 	<Icon name="CALENDAR" width="50px" />
@@ -124,3 +124,9 @@ cupidatat.
 <!-- DropdownInput -->
 <DropdownInput />
 
+<Divider />
+
+<!-- DateInput -->
+<DateInput />
+
+<Divider />
