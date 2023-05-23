@@ -9,7 +9,7 @@ export const load: PageServerLoad = async () => {
 	// nothing needs to happen here
 };
 
-const postSignUp = async (username: string, hashedPassword: Promise<string>) => {
+const postSignUp = async (username: string, hashedPassword: string) => {
 	const response = await fetch(PUBLIC_API_URL + '/auth/v1/register', {
 		method: 'POST',
 		headers: {
@@ -37,7 +37,7 @@ const signup: Action = async ({ request }) => {
 		return fail(400, { invalid: true });
 	}
 
-	const hashedPassword = bcrypt.hash(password, numSaltRound);
+	const hashedPassword = await bcrypt.hash(password, numSaltRound);
 
 	// create USER in DB
 	const response = await postSignUp(username, hashedPassword);
