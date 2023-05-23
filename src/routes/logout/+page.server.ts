@@ -1,6 +1,7 @@
 import {fail, redirect} from '@sveltejs/kit';
 import type {Actions, PageServerLoad} from './$types';
 import {PUBLIC_API_URL} from "$env/static/public";
+import { TOKEN_BEARER } from '$env/static/private';
 
 export const load: PageServerLoad = async () => {
     // logout is only serverside and deletes cookies and informs API
@@ -16,7 +17,7 @@ const getLogout = async (auth_token?: string) => {
             'Content-Type': 'application/json'
         },
         credentials: 'same-origin',
-        body: JSON.stringify({token: auth_token})
+        body: JSON.stringify({TOKEN_BEARER: auth_token})
     });
     return response;
 }
@@ -24,7 +25,7 @@ const getLogout = async (auth_token?: string) => {
 export const actions: Actions = {
     async default({cookies, locals}) {
         console.log("User Logout")
-        const auth_token = JSON.stringify({token: cookies.get('AuthorizationToken')})
+        const auth_token = JSON.stringify({TOKEN_BEARER: cookies.get(TOKEN_BEARER)})
 
         /* API currently does not support a logout
         const logout = await getLogout(auth_token);
@@ -42,7 +43,7 @@ export const actions: Actions = {
         };
 
         // eat the cookie
-        await cookies.delete('AuthorizationToken');
+        await cookies.delete(TOKEN_BEARER);
 
         throw redirect(302, '/login');
     }
