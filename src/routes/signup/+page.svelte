@@ -3,6 +3,9 @@
 	import { useForm, validators, HintGroup, Hint, email, required } from 'svelte-use-form';
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
+	import TextInput from '$lib/components/TextInput.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 
 	export let form: ActionData;
 </script>
@@ -11,56 +14,35 @@
 <p>Please input your credentials</p>
 
 <form action="?/signup" method="POST">
-	<div>
+	<div class="content">
 		<label for="username">Name:</label>
-		<input type="text" id="username" name="username" required />
+		<TextInput placeholder="E-Mail Adress" type="text" id="username" name="username" required="{true}"></TextInput>
+		<!-- <input type="text" id="username" name="username" placeholder="E-Mail Adress" required /> -->
 	</div>
 
-	<div>
+	<div class="content">
 		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" required />
+		<!-- <input type="password" id="password" name="password" placeholder="Password" required/> -->
+		<TextInput placeholder="Password" type="password" id="password" name="password" required="{true}"></TextInput>
 	</div>
 
-	{#if form?.user}
+	{#if form?.user || form?.invalid}
 		<p class="error">{form?.info}</p>
 	{/if}
 
-	<div class="btn">
+	<Button label="Sign Up" button_type="submit" onclick="{() => null}"/>
+
+	<!-- <div class="btn">
 		<button type="submit">Sign Up</button>
-	</div>
+	</div> -->
 </form>
+
+<Divider />
 
 <!-- back-button -->
 <a class="btn" href="/">Back</a>
 
 <style>
-	form {
-		width: 100%;
-	}
-
-	input {
-		color: #b1b1b1;
-		width: auto;
-		padding: 12px 20px;
-		margin: 8px 0;
-		box-sizing: border-box;
-		font-size: 24px;
-		align-items: left;
-	}
-
-	input[type='password'] {
-		width: 100%;
-	}
-
-	:global(.touched:invalid) {
-		border-color: red;
-		outline-color: red;
-	}
-
-	.btn {
-		border: 1px solid gray;
-	}
-
 	.error {
 		color: red;
 	}

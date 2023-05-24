@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
 <header>
@@ -11,7 +12,7 @@
 		<a href="/about">About</a>
 		{#if $page.data.user.isLoggedIn}
 			<form class="logout" action="/logout" method="POST" use:enhance>
-				<button type="submit">Log out</button>
+				<Button label="Log Out" button_type="submit" onclick={() => null} />
 			</form>
 		{:else}
 			<a href="/login">Login</a><a href="/signup">Sign Up</a>
@@ -48,7 +49,7 @@
 		height: 20px;
 	}
 
-	header form button{
+	header form button {
 		font-weight: bold;
 		padding: 3px;
 		border-radius: 2px;

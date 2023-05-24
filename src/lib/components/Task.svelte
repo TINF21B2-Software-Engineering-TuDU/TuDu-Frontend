@@ -1,8 +1,13 @@
 <script lang="ts">
-	import type { Task } from "../../entities";
+    import { createEventDispatcher } from 'svelte'
+	const dispatch = createEventDispatcher()
+
+	import type { List, Task } from "../../entities";
+	import Checkbox from "./Checkbox.svelte";
 
     export let task: Task;
     export let expanded: Boolean = true;
+    export let list_id: Number;
 
     let color: String;
     if (new Date(task.duedate) > new Date) {
@@ -14,9 +19,14 @@
     } else {
         color = "red";
     }
+
+    let check = function () {
+        dispatch("check");
+    }
 </script>
 
 <div class="box">
+    <Checkbox checked="{task.iscompleted}" on:check={check}/>
     <h3>{task.title} #{task.task_id}</h3>
 
     {#if expanded}
@@ -28,6 +38,8 @@
     {:else}
         <p id="dueDate" style="--theme-color: {color}">Due until {new Date(task.duedate).toLocaleDateString("de-DE")}<sub>Created on {new Date(task.creationdate).toLocaleDateString("de-DE")}</sub></p>
     {/if}
+
+    <a href="/main/lists/{list_id}/task/{task.task_id}">Edit Task.</a>
 </div>
 
 

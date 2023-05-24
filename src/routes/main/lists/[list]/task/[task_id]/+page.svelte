@@ -1,35 +1,49 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import Button from '$lib/components/Button.svelte';
+	import DateInput from '$lib/components/DateInput.svelte';
+	import Divider from '$lib/components/Divider.svelte';
+	import TextArea from '$lib/components/TextArea.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
+	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
+	export let form: ActionData;
 
-	const { task } = data;
+	const { task, list_id } = data;
 </script>
 
-<h1>{task.name} #{task.id}</h1>
-<a href="/main/lists/{task.list}">Back to List</a>
+<h1>Edit {task.title}</h1>
 
-<tabel>
-	<tr>
-		<td>Editable</td>
-		<td>{#if task.isEditable}Yes{:else}No{/if}</td>
-	</tr>
-	<tr>
-		<td>Completed:</td>
-		<td>{#if task.isCompleted}Yes{:else}No{/if}</td>
-	</tr>
-	<tr>
-		<td>Due til:</td>
-		<td>{task.dueDate.toLocaleString()}</td>
-	</tr>
-	<tr>
-		<td>Created on:</td>
-		<td>{task.creationDate.toLocaleString()}</td>
-	</tr>
-</tabel>
+<form method="POST" action="?/updateTask">
+	<label for="title">Title:</label>
+	<TextInput
+		placeholder="Task Title"
+		type="text"
+		id="title"
+		name="title"
+		required={true}
+		value={form?.title ?? task.title}
+	/>
 
-{#if task.contents === undefined}
-<p>No description provided!</p>
-{:else}
-<p><u>Description:</u>{task.contents}</p>
-{/if}
+	<label for="contents">Description:</label>
+	<TextArea placeholder="Description" id="contents" name="contents" value="{task.contents}"/>
+
+	<label for="dueDate">Due Date:</label>
+	<DateInput id="dueDate" name="dueDate" />
+
+	{#if form?.missing}
+		<p class="error">This field is required</p>
+	{/if}
+
+	{#if form?.success}
+		<p>Task Added!</p>
+	{:else if form?.text}
+		<p>{form?.text}</p>
+	{/if}
+
+	<Button label="Create Task" button_type="submit" onclick={() => null} />
+</form>
+
+<Divider />
+
+<a href="/main/lists/{list_id}">Back to List</a>

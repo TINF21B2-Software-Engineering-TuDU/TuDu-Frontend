@@ -1,6 +1,9 @@
 <script lang="ts">
 	import type { PageData, ActionData } from './$types';
 	import { invalidateAll } from '$app/navigation';
+	import Button from '$lib/components/Button.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -17,33 +20,32 @@
 				<p>Description: {list.description}</p>
 			</div>
 		</a>
+		<Divider />
 	{/each}
 {:else}
 	<p>You have no lists!</p>
 {/if}
 
-<hr />
-
-<h1>Create new List</h1>
+<h3>Create new List</h3>
 
 <form method="POST" action="?/createNewList">
 	<div>
-		<label for="title">Title:</label>
-		<input type="text" id="title" name="title" required value={form?.title ?? ''} />
+		<label for="title">New List Title:</label>
+		<TextInput placeholder="List Title" type="text" id="title" name="title" required={true} />
 	</div>
 
 	{#if form?.missing}
 		<p class="error">This field is required</p>
 	{/if}
 
-	<button type="submit">Create List</button>
-</form>
+	{#if form?.success}
+		<p>Added List! 🥳</p>
+	{:else}
+		<p>{form?.text}</p>
+	{/if}
 
-{#if form?.success}
-	<p>Added List! 🥳</p>
-{:else}
-	<p>{form?.text}</p>
-{/if}
+	<Button label="Create List" button_type="submit" onclick={() => null} />
+</form>
 
 <style>
 	.list {
