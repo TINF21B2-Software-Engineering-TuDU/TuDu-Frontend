@@ -1,5 +1,4 @@
-# Build svelte app
-FROM node:latest as build
+FROM node:latest
 
 
 # --------------
@@ -21,19 +20,11 @@ COPY . .
 
 RUN npm run build
 
-# serve the standalone node server we built
-FROM node:latest as serve
-
-WORKDIR /app
-
-COPY --from=build /app/package*.json ./
-
-RUN npm install --only=production
-
-COPY --from=build /app/build/* ./
-
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+CMD ["node", "build/index.js"]
 
+# Healthcheck
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl -f http://localhost:3000/ || exit 1
+
+# --------------
