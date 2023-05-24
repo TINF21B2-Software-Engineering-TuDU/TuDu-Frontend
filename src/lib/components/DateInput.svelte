@@ -1,10 +1,12 @@
 <script>
+    export let id = "input_field";
+	export let name = "input_field";
 	export let value = new Date().toISOString().split('T')[0];
 </script>
 
 <div class="content">
     <!-- Date inputs cannot really be styled... -->
-	<input type="date" bind:value />
+	<input type="date" id="{id}" name="{name}" bind:value />
 </div>
 
 <style>

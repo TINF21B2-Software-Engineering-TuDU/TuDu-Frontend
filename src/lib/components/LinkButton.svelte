@@ -1,31 +1,11 @@
 <script>
 	export let label = 'Placeholder';
-	export let onclick = () => {
-		alert('No onclick function defined!');
-	};
-	export let button_type = "button";
-
-	export let types = ['default', 'confirm', 'delete'];
-	export let type = 'default';
-
-	$: {
-		if (!types.includes(type)) {
-			console.error(`Invalid type: ${type}`);
-			type = 'default';
-		}
-	}
-
+	export let destination = "/";
 </script>
 
-<input
-	class="content"
-	class:default={type === 'default'}
-	class:confirm={type === 'confirm'}
-	class:delete={type === 'delete'}
-	type={button_type}
-	value={label}
-	on:click={onclick}
-/>
+<div class="default">
+    <a href="{destination}">{label}</a>
+</div>
 
 <style>
 	.content {
@@ -35,13 +15,12 @@
 		align-items: center;
 		padding: 0px 15px;
 		gap: 15px;
-		margin-top: 10px;
 
 		height: 45px;
 		width: 100%;
 	}
 
-	input {
+	a {
 		border-radius: 5px;
 
 		border: none;
@@ -53,7 +32,7 @@
 		flex-grow: 1;
 	}
 
-	input:hover {
+	a:hover {
 		cursor: pointer;
 	}
 
