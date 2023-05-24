@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
+
+	import userIcon from '$lib/images/user_icon.png';
 </script>
 
 <header>
 	<nav>
 		<a href="/">Home</a>
 		<a href="/main">Main</a>
-		<a href="/user"><img src="/src/lib/images/user_icon.png" alt="user profile pic." />{$page.data.user.username}</a>
+		<a href="/user"><img src={userIcon} alt="user profile pic." />{$page.data.user.username}</a>
 		<a href="/about">About</a>
 		{#if $page.data.user.isLoggedIn}
 			<form class="logout" action="/logout" method="POST" use:enhance>
