@@ -76,7 +76,7 @@
 
 	#bg-layer-2 {
 		/* Marker */
-		background: #18cdca;
+		background: linear-gradient(180deg, #18CDCA 70%, #8ce8e7 100%);
 		opacity: 0.3;
 		border-radius: 10px 0px 0px 0px;
 	}
