@@ -7,6 +7,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import type { ActionData, PageData } from './$types';
 	import { ReocurringRuleTypes } from '$lib/entities';
+	import LinkButton from '$lib/components/LinkButton.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -28,6 +29,10 @@
 </script>
 
 <h1>Edit {task.title}</h1>
+
+<LinkButton label="Back to List" destination="/main/lists/{list_id}" />
+
+<Divider />
 
 <form method="POST" action="?/updateTask">
 	<label for="title">Title:</label>
@@ -64,7 +69,3 @@
 
 	<Button label="Edit Task" button_type="submit" type="confirm" onclick={() => null} />
 </form>
-
-<Divider />
-
-<a href="/main/lists/{list_id}">Back to List</a>

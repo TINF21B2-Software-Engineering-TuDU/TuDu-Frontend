@@ -4,6 +4,7 @@
 	import DateInput from '$lib/components/DateInput.svelte';
 	import Divider from '$lib/components/Divider.svelte';
 	import DropdownInput from '$lib/components/DropdownInput.svelte';
+	import LinkButton from '$lib/components/LinkButton.svelte';
 	import Task from '$lib/components/Task.svelte';
 	import TextArea from '$lib/components/TextArea.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
@@ -73,15 +74,15 @@
 {#if list === undefined}
 	<h1>Internal Server Error</h1>
 {:else}
-	<h1>TuDu's of list {list.list_name}:</h1>
+	<h2>TuDu's of list {list.list_name}:</h2>
+	<p>{list.description}</p>
 
-	<a class="button" href="/main">Back</a>
+	<LinkButton label="Back" destination="/main" />
+	<Divider />
 
 	<div class="tasks">
-		{#if tasks === null || tasks.length === 0}
-			<h2>There are now tasks in this list!</h2>
-		{:else}
-			<h2>Unfinished TuDu's:</h2>
+		{#if tasks !== null && tasks.length > 0}
+			<h3>Unfinished TuDu's:</h3>
 			{#each unfinishedTasks as task, i}
 				<Task
 					bind:task
@@ -91,7 +92,7 @@
 				/>
 			{/each}
 			<Divider />
-			<h2>Finished TuDu's</h2>
+			<h3>Finished TuDu's</h3>
 			{#each finishedTasks as task, i}
 				<Task
 					bind:task
@@ -103,7 +104,7 @@
 		{/if}
 	</div>
 
-	<h2>Create new Task</h2>
+	<h3>Create new Task</h3>
 
 	<form method="POST" action="?/createNewTask">
 		<div>
