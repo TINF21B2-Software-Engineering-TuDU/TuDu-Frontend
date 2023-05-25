@@ -4,6 +4,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import LinkButton from '$lib/components/LinkButton.svelte';
 	import Logo from '$lib/components/Logo.svelte';
+	import userIcon from '$lib/images/user_icon.png';
 </script>
 
 <header>
