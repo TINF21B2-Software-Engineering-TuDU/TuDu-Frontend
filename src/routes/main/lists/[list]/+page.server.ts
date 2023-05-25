@@ -3,6 +3,7 @@ import type { List, Task } from '../../../../entities';
 import type { PageLoad } from '../../../$types';
 import { fail } from '@sveltejs/kit';
 import { TOKEN, TOKEN_BEARER } from '$env/static/private';
+import { invalidateAll } from '$app/navigation';
 
 export const load = (async ({ fetch, params }) => {
 	const listResponse = await fetch(`${PUBLIC_API_URL}/api/v1/list/${params.list}`);
@@ -26,7 +27,31 @@ export const load = (async ({ fetch, params }) => {
 
 export const actions = {
 	deleteTask: async ({request, locals, cookies, params }) => {
-		console.log("delete task")
+		const listId = params.list;
+
+		const formData = await request.formData();
+		const taskId = String(formData.get("taskId"))
+
+		// API CALL
+		let temp = [];
+		
+		temp.push(encodeURIComponent('token') + '=' + encodeURIComponent(cookies.get(TOKEN)));
+		let formBody = temp.join('&');
+
+		const response = await fetch(`${PUBLIC_API_URL}/api/v1/list/${listId}/task/${taskId}`, {
+			method: 'DELETE',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: formBody
+		});
+
+		if (response.ok) {
+			return { success: true };
+		} else {
+			return fail(response.status, { text: response.statusText });
+		}
 	},
 	createNewTask: async ({ request, locals, cookies, params }) => {
 		const formData = await request.formData();
@@ -34,6 +59,7 @@ export const actions = {
 		const title = String(formData.get('title'));
 		const dueDate = String(formData.get('dueDate'));
 		const contents = String(formData.get('contents'));
+		const reocurringRule = String(formData.get('ruleset'));
 		const isEditable = true;
 		const isCompleted = false;
 		const listId = params.list;
@@ -48,10 +74,10 @@ export const actions = {
 		temp.push(encodeURIComponent('isEditable') + '=' + encodeURIComponent(isEditable));
 		temp.push(encodeURIComponent('isCompleted') + '=' + encodeURIComponent(isCompleted));
 		if (dueDate !== '') {
-			console.log(dueDate);
 			temp.push(encodeURIComponent('dueDate') + '=' + encodeURIComponent(dueDate));
 		}
 		temp.push(encodeURIComponent('contents') + '=' + encodeURIComponent(contents));
+		temp.push(encodeURIComponent('reoccuring_rule') + '=' + encodeURIComponent(reocurringRule));
 		temp.push(encodeURIComponent('list_id') + '=' + encodeURIComponent(listId));
 		temp.push(encodeURIComponent('token') + '=' + encodeURIComponent(cookies.get(TOKEN)));
 		let formBody = temp.join('&');
@@ -74,27 +100,28 @@ export const actions = {
 	checkTask: async ({ request, cookies, params }) => {
 		const listId = params.list;
 
-		console.log(listId, "CHECK TASK")
+		const formData = await request.formData();
+		const taskId = String(formData.get("taskId"))
 
-		// // API CALL
-		// let temp = [];
+		// API CALL
+		let temp = [];
 		
-		// temp.push(encodeURIComponent('token') + '=' + encodeURIComponent(cookies.get(TOKEN)));
-		// let formBody = temp.join('&');
+		temp.push(encodeURIComponent('token') + '=' + encodeURIComponent(cookies.get(TOKEN)));
+		let formBody = temp.join('&');
 
-		// const response = await fetch(`${PUBLIC_API_URL}/api/v1/list/${listId}/task/7/check`, {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		Accept: 'application/json',
-		// 		'Content-Type': 'application/x-www-form-urlencoded'
-		// 	},
-		// 	body: formBody
-		// });
+		const response = await fetch(`${PUBLIC_API_URL}/api/v1/list/${listId}/task/${taskId}/check`, {
+			method: 'PATCH',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: formBody
+		});
 
-		// if (response.ok) {
-		// 	return { success: true };
-		// } else {
-		// 	return fail(response.status, { text: response.statusText });
-		// }
+		if (response.ok) {
+			return { success: true };
+		} else {
+			return fail(response.status, { text: response.statusText });
+		}
 	}
 };

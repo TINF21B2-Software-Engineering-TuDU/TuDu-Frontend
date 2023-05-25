@@ -1,31 +1,79 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { invalidate, invalidateAll } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import DateInput from '$lib/components/DateInput.svelte';
 	import Divider from '$lib/components/Divider.svelte';
-	import Icon from '$lib/components/Icon.svelte';
+	import DropdownInput from '$lib/components/DropdownInput.svelte';
 	import Task from '$lib/components/Task.svelte';
 	import TextArea from '$lib/components/TextArea.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
-	import type { PageData, ActionData } from './$types';
+	import { ReocurringRuleTypes } from '$lib/entities';
+	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
 	export let form: ActionData;
 
 	const { list, tasks } = data;
 
-	// TODO: das abchecken geht noch nicht, weil der API call fehl schlägt
-	// irgendwie muss es als FORM gesendet werden, damit der Endpoint in der +page.server.ts erreicht werden kann
-	// ansich sollte so schon funktionieren...
-	let check = async function () {
-		await fetch("?/checkTask", {method: "POST", body: null});
+	let unfinishedTasks = tasks.filter((task) => !task.iscompleted);
+	let finishedTasks = tasks.filter((task) => task.iscompleted);
+
+	// Reocurring Rule Sets
+	const rule_set = [
+		ReocurringRuleTypes.Daily,
+		ReocurringRuleTypes.Weekly,
+		ReocurringRuleTypes.Biweekly,
+		ReocurringRuleTypes.Monthly
+	];
+	let selected_rule = -1;
+
+	// Mark Task as complete
+	let check = async function (task_id: Number) {
+		let temp = [];
+
+		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task_id.toString()));
+		let formBody = temp.join('&');
+		const checkResponse = await fetch('?/checkTask', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: temp
+		});
+		if (checkResponse.status >= 400 || !checkResponse.ok) {
+			return null;
+		}
+		// better use invalidate("/") or invalidateAll(), but they are not working...
+		location.reload();
+	};
+
+	// Delete Task
+	let deleteTask = async function (task_id:Number) {
+		let temp = [];
+
+		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task_id.toString()));
+		let formBody = temp.join('&');
+		const checkResponse = await fetch('?/deleteTask', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: temp
+		});
+		if (checkResponse.status >= 400 || !checkResponse.ok) {
+			return null;
+		}
+		// better use invalidate("/") or invalidateAll(), but they are not working...
+		location.reload();
 	}
 </script>
 
 {#if list === undefined}
 	<h1>Internal Server Error</h1>
 {:else}
-	<h1>List: {list.list_name}</h1>
+	<h1>TuDu's of list {list.list_name}:</h1>
 
 	<a class="button" href="/main">Back</a>
 
@@ -33,10 +81,24 @@
 		{#if tasks === null || tasks.length === 0}
 			<h2>There are now tasks in this list!</h2>
 		{:else}
-			<h2>TuDu's:</h2>
-			{#each tasks as task}
-				<Task task={task} list_id={list.list_id} on:check={check} />
-				<Divider />
+			<h2>Unfinished TuDu's:</h2>
+			{#each unfinishedTasks as task, i}
+				<Task
+					bind:task
+					list_id={list.list_id}
+					on:check={() => check(task.task_id, i)}
+					on:deleteTask={() => deleteTask(task.task_id)}
+				/>
+			{/each}
+			<Divider />
+			<h2>Finished TuDu's</h2>
+			{#each finishedTasks as task, i}
+				<Task
+					bind:task
+					list_id={list.list_id}
+					on:check={() => check(task.task_id, i)}
+					on:deleteTask={() => deleteTask(task.task_id)}
+				/>
 			{/each}
 		{/if}
 	</div>
@@ -62,6 +124,16 @@
 		</div>
 
 		<div>
+			<label for="reocurring_rule">Reocurring Rule:</label>
+			<input type="hidden" value={rule_set[selected_rule]} id="ruleset" name="ruleset" />
+			<DropdownInput
+				placeholder="Reocurring Rule"
+				options={rule_set}
+				bind:selected={selected_rule}
+			/>
+		</div>
+
+		<div>
 			<label for="dueDate">Due Date:</label>
 			<DateInput id="dueDate" name="dueDate" />
 		</div>
@@ -76,7 +148,7 @@
 			<p>{form?.text}</p>
 		{/if}
 
-		<Button label="Create Task" button_type="submit" onclick={() => null} />
+		<Button label="Create Task" button_type="submit" type="confirm" onclick={() => null} />
 	</form>
 {/if}
 
