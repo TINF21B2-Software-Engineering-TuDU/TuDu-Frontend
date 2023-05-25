@@ -5,8 +5,10 @@ import {PUBLIC_API_URL} from "$env/static/public";
 
 const numSaltRound = 8;
 
-export const load: PageServerLoad = async () => {
-	// nothing needs to happen here
+export const load: PageServerLoad = async ({ locals }) => {
+	if (locals.user.isLoggedIn) {
+		throw redirect(302, '/main');
+	}
 };
 
 const postSignUp = async (username: string, hashedPassword: string) => {

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import LinkButton from '$lib/components/LinkButton.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import type { ActionData } from './$types';
 
@@ -38,15 +39,13 @@
 		<p class="error">You have entered the wrong credentials.</p>
 	{/if}
 
-	<Button label="Log In" button_type="submit" onclick="{() => null}"/>
+	<Button label="Log In" button_type="submit" type="confirm" onclick="{() => null}"/>
 </form>
 
 <Divider />
 
-<div class="actions">
-	No Account? Sign up <a href="/signup">here</a>!<br />
-	<a class="btn" href="/">Back</a>
-</div>
+<LinkButton destination="/signup" label="Signup here!"/>
+<LinkButton destination="/" label="Back"/>
 
 <style>
 	.error {

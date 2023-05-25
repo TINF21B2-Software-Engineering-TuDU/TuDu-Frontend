@@ -6,6 +6,7 @@
 	import TextInput from '$lib/components/TextInput.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import Divider from '$lib/components/Divider.svelte';
+	import LinkButton from '$lib/components/LinkButton.svelte';
 
 	export let form: ActionData;
 </script>
@@ -17,12 +18,10 @@
 	<div class="content">
 		<label for="username">Name:</label>
 		<TextInput placeholder="E-Mail Adress" type="text" id="username" name="username" required="{true}"></TextInput>
-		<!-- <input type="text" id="username" name="username" placeholder="E-Mail Adress" required /> -->
 	</div>
 
 	<div class="content">
 		<label for="password">Password:</label>
-		<!-- <input type="password" id="password" name="password" placeholder="Password" required/> -->
 		<TextInput placeholder="Password" type="password" id="password" name="password" required="{true}"></TextInput>
 	</div>
 
@@ -30,17 +29,13 @@
 		<p class="error">{form?.info}</p>
 	{/if}
 
-	<Button label="Sign Up" button_type="submit" onclick="{() => null}"/>
-
-	<!-- <div class="btn">
-		<button type="submit">Sign Up</button>
-	</div> -->
+	<Button label="Sign Up" button_type="submit" type="confirm" onclick="{() => null}"/>
 </form>
 
 <Divider />
 
-<!-- back-button -->
-<a class="btn" href="/">Back</a>
+<LinkButton destination="/login" label="Login here!"/>
+<LinkButton destination="/" label="Back"/>
 
 <style>
 	.error {
