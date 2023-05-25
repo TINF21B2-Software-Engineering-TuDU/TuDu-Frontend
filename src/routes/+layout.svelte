@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Footer from './Footer.svelte';
 	import Header from './Header.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 	import './style.css';
 </script>
 
@@ -10,6 +11,12 @@
 	<div class="page">
 		<div class="background" id="bg-layer-1" />
 		<div class="background" id="bg-layer-2" />
+
+		<Icon name="SIDEBAR-EXPAND" width="30px" interactive 
+				onclick={()=>{
+					alert("//todo:Expand sidebar");
+				}} />
+
 		<main><slot /></main>
 	</div>
 
@@ -36,6 +43,17 @@
 
 	.page {
 		position: relative;
+
+		display: flex;
+		flex-direction: row;
+		flex: 1;
+
+		margin: 0 auto;
+		width: 100%;
+		
+		align-items: top;
+		padding:20px;
+		gap: 40px;
 	}
 
 	.background {
