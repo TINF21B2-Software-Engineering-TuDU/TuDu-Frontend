@@ -50,7 +50,7 @@
 	};
 
 	// Delete Task
-	let deleteTask = async function (task_id:Number) {
+	let deleteTask = async function (task_id: Number) {
 		let temp = [];
 
 		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task_id.toString()));
@@ -68,7 +68,7 @@
 		}
 		// better use invalidate("/") or invalidateAll(), but they are not working...
 		location.reload();
-	}
+	};
 </script>
 
 {#if list === undefined}
