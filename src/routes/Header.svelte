@@ -2,20 +2,24 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import Button from '$lib/components/Button.svelte';
+	import LinkButton from '$lib/components/LinkButton.svelte';
+	import Logo from '$lib/components/Logo.svelte';
 </script>
 
 <header>
+	<Logo />
 	<nav>
-		<a href="/">Home</a>
-		<a href="/main">Main</a>
-		<a href="/user"><img src="/src/lib/images/user_icon.png" alt="user profile pic." />{$page.data.user.username}</a>
-		<a href="/about">About</a>
+		<LinkButton label="Home" destination="/" />
+		<LinkButton label="Main" destination="/main" />
+		<LinkButton label="About" destination="/about" />
+		<LinkButton label={$page.data.user.username} destination="/user" />
 		{#if $page.data.user.isLoggedIn}
 			<form class="logout" action="/logout" method="POST" use:enhance>
 				<Button label="Log Out" button_type="submit" onclick={() => null} />
 			</form>
 		{:else}
-			<a href="/login">Login</a><a href="/signup">Sign Up</a>
+			<LinkButton label="Log In" destination="/login" />
+			<LinkButton label="Sign Up" destination="/signup" />
 		{/if}
 	</nav>
 </header>
@@ -31,28 +35,13 @@
 		background-color: dimgrey;
 	}
 
-	header a {
-		font-weight: bold;
-		padding: 3px;
-		border-radius: 2px;
-		background-color: #292c44;
-	}
-
 	@media (min-width: 480px) {
 		header {
 			padding: 12px 0;
 		}
 	}
 
-	img {
-		width: 20px;
-		height: 20px;
-	}
-
-	header form button {
-		font-weight: bold;
-		padding: 3px;
-		border-radius: 2px;
-		background-color: #292c44;
+	nav {
+		display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 10px;
 	}
 </style>

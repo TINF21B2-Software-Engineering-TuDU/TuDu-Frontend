@@ -32,8 +32,6 @@ const signup: Action = async ({ request }) => {
 	const username = data.get('username');
 	const password = data.get('password');
 
-	console.log(data)
-
 	// check input
 	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
 		return fail(400, { invalid: true, info: "Username or Password is undefined." });
