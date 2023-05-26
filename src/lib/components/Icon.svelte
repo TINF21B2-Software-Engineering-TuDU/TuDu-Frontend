@@ -17,7 +17,6 @@
 
     // icon is only interactive if onclick is not being set
     const interactive = !!onclick;
-    console.log(interactive, onclick?.toString());
     // add tabindex to make icon interactive
     $: tabindex = interactive ? 0 : undefined;
 </script>
