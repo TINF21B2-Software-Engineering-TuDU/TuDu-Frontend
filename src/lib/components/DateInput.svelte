@@ -27,5 +27,10 @@
 
         background: none;
 		border: none;
+        cursor: text;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
     }
 </style>
