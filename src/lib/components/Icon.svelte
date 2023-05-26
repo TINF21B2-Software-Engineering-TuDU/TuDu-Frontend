@@ -1,7 +1,6 @@
 <script>
 	export let name = "EDIT";
     export let width = "15px";
-    export let interactive = false;
     export let onclick = () => {};
     // handle enter keypress
     const handleEnter = (/** @type {{ key: string; }} */ event) => {
@@ -9,6 +8,11 @@
             onclick();
         }
     };
+
+    // check if icon is interactive
+    // this can still be overwritten for compatibility reasons
+    export let interactive = onclick !== undefined; // deprecated
+
     // add tabindex to make icon interactive
     $: tabindex = interactive ? 0 : undefined;
 </script>
