@@ -18,7 +18,7 @@
 		}}
 	/>
 
-	<main><slot /></main>
+	<main tabindex="-1"><slot /></main>
 </div>
 
 <style>
