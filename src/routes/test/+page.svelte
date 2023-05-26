@@ -16,10 +16,10 @@
 <Icon name="RECURRENCE" width="30px" interactive />
 
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
-	<Icon name="RECURRENCE" width="30px" />
-	<Icon name="CALENDAR" width="50px" />
+	<Icon name="RECURRENCE" width="30px" tint="#18CDCA" />
+	<Icon name="CALENDAR" width="50px"/>
 	<Icon name="SEARCH" width="70px" />
-	<Icon name="ADD" width="30px" interactive />
+	<Icon name="ADD" width="30px" interactive  tint="red" />
 	<Icon name="ARROW" width="30px" interactive onclick={() => alert('Icons are buttons now!')} />
 </div>
 
@@ -87,7 +87,7 @@
 
 <div style="display: flex; flex-direction: column; gap: 10px;">
 	<TextInput />
-	<TextInput placeholder="Recurrence mode" icon="RECURRENCE" />
+	<TextInput placeholder="Recurrence mode" icon="RECURRENCE" iconTint="teal" />
 </div>
 
 <Divider />
@@ -117,7 +117,7 @@ cupidatat.
 <Divider />
 
 <!-- TextArea -->
-<TextArea />
+<TextArea icon="ARROW" iconTint="teal" />
 
 <Divider />
 
