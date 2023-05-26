@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:18-alpine AS build
 
 
 # --------------
@@ -11,20 +11,19 @@ LABEL date="2023-06-24"
 # --------------
 
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install
-
 COPY . .
-
 RUN npm run build
+
+FROM node:18-alpine AS deploy-node
+
+WORKDIR /app
+RUN rm -rf ./*
+COPY --from=build /app/package.json .
+COPY --from=build /app/build .
+RUN npm install
 
 EXPOSE 3000
 
-CMD ["node", "build/index.js"]
-
-# Healthcheck
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl -f http://localhost:3000/ || exit 1
-
-# --------------
+CMD ["node", "index.js"]
