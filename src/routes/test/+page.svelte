@@ -13,14 +13,14 @@
 </script>
 
 <!-- ICON -->
-<Icon name="RECURRENCE" width="30px" interactive />
+<Icon name="RECURRENCE" width="30px" />
 
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
 	<Icon name="RECURRENCE" width="30px" />
 	<Icon name="CALENDAR" width="50px" />
 	<Icon name="SEARCH" width="70px" />
-	<Icon name="ADD" width="30px" interactive />
-	<Icon name="ARROW" width="30px" interactive onclick={() => alert('Icons are buttons now!')} />
+	<Icon name="ADD" width="30px" />
+	<Icon name="ARROW" width="30px" onclick={() => alert('Icons are buttons now!')} />
 </div>
 
 <Divider />

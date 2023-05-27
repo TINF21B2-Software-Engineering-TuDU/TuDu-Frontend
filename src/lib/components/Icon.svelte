@@ -1,17 +1,22 @@
 <script>
 	export let name = "EDIT";
     export let width = "15px";
-    export let interactive = false;
-    export let onclick = () => {
-        alert("No onclick function defined");
-    };
+    /**
+	 * @type {{ (): void; toString: () => string; } | undefined}
+	 */
+     export let onclick = undefined;
     // handle enter keypress
     const handleEnter = (/** @type {{ key: string; }} */ event) => {
         if (event.key === "Enter") {
-            onclick();
+            // call onclick if it is set
+            if (onclick) {
+                onclick();
+            }
         }
     };
 
+    // icon is only interactive if onclick is not being set
+    const interactive = !!onclick;
     // add tabindex to make icon interactive
     $: tabindex = interactive ? 0 : undefined;
 </script>

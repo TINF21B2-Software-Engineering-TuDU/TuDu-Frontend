@@ -12,7 +12,6 @@
 	<Icon
 		name="SIDEBAR-EXPAND"
 		width="30px"
-		interactive
 		onclick={() => {
 			alert('//todo:Expand sidebar');
 		}}
