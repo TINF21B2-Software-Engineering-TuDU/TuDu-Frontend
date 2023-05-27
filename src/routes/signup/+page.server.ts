@@ -33,9 +33,10 @@ const signup: Action = async ({ request }) => {
 	const data = await request.formData();
 	const username = data.get('username');
 	const password = data.get('password');
+	const password_repeat = data.get('password_repeat');
 
 	// check input
-	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
+	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password || password != password_repeat) {
 		return fail(400, { invalid: true, info: "Username or Password is undefined." });
 	}
 
