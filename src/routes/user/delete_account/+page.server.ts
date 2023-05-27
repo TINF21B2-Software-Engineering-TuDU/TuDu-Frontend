@@ -25,7 +25,6 @@ export const actions: Actions = {
 		const data = await request.formData();
 		const username = data.get('username')?.toString();
 
-		// TODO: change form to load function from the hook
 		if (!username) {
 			throw redirect(302, "/main");
 		}
