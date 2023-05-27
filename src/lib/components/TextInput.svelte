@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	export let placeholder = 'Placeholder';
 	export let value = '';
 	export let icon = 'EDIT';
@@ -11,7 +11,7 @@
 </script>
 
 <div class="content">
-	<Icon name={icon} width="18px" onclick="{() => null}"/>
+	<Icon name={icon} width="18px" />
 	<input type="{type}" id="{id}" name="{name}" {placeholder} {value} required="{required}"/>
 </div>
 
