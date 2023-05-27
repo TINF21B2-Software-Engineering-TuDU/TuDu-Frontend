@@ -7,10 +7,4 @@
 <p>Something went wrong. Try the <a href="/">landing page</a> or contact an Admin.</p>
 
 <h4>Error message:</h4>
-<p>{$page.error?.message}</p>
-
-<style>
-    h4 + p {
-        color: red;
-    }
-</style>
+<p class="error">{$page.error?.message}</p>

@@ -68,8 +68,4 @@
 		border-color: red;
 		outline-color: red;
 	}
-
-	.error {
-		color: red;
-	}
 </style>
