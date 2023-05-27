@@ -24,7 +24,8 @@
 		ReocurringRuleTypes.Daily,
 		ReocurringRuleTypes.Weekly,
 		ReocurringRuleTypes.Biweekly,
-		ReocurringRuleTypes.Monthly
+		ReocurringRuleTypes.Monthly,
+		ReocurringRuleTypes.Yearly
 	];
 	let selected_rule = -1;
 

@@ -19,7 +19,8 @@
 		ReocurringRuleTypes.Daily,
 		ReocurringRuleTypes.Weekly,
 		ReocurringRuleTypes.Biweekly,
-		ReocurringRuleTypes.Monthly
+		ReocurringRuleTypes.Monthly,
+		ReocurringRuleTypes.Yearly
 	];
 	let selected_rule = -1;
 	if (task.reoccuring_rule !== null && task.reoccuring_rule !== undefined) {
