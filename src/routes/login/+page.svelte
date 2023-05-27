@@ -6,9 +6,6 @@
 	import type { ActionData } from './$types';
 
 	export let form: ActionData;
-
-	let useremail: string;
-	let password: string;
 </script>
 
 <svelte:head>
@@ -19,16 +16,12 @@
 <p>Please input your credentials</p>
 
 <form action="?/login" method="post">
-	<div class="content">
-		<label for="username">Name:</label>
-		<TextInput placeholder="E-Mail Adress" type="text" id="username" name="username" required="{true}"></TextInput>
-		<!-- <input type="text" id="username" name="username" placeholder="E-Mail Adress" required /> -->
+	<div>
+		<TextInput placeholder="E-Mail Adress" type="text" id="username" name="username" required={true} />
 	</div>
 
-	<div class="content">
-		<label for="password">Password:</label>
-		<!-- <input type="password" id="password" name="password" placeholder="Password" required/> -->
-		<TextInput placeholder="Password" type="password" id="password" name="password" required="{true}"></TextInput>
+	<div>
+		<TextInput placeholder="Password" type="password" id="password" name="password" required={true} />
 	</div>
 
 	{#if form?.invalid}
@@ -39,16 +32,30 @@
 		<p class="error">You have entered the wrong credentials.</p>
 	{/if}
 
-	<Button label="Log In" button_type="submit" type="confirm" onclick="{() => null}"/>
+	<Button label="Log In" button_type="submit" type="confirm" onclick={() => null} />
 </form>
 
 <Divider />
 
-<LinkButton destination="/signup" label="Signup here!"/>
-<LinkButton destination="/" label="Back"/>
+<div class="flex-parent">
+	<div class="flex-child"><LinkButton destination="/signup" label="Signup here!" /></div>
+	<div class="flex-child"><LinkButton destination="/" label="Back" /></div>
+</div>
 
 <style>
-	.error {
-		color: red;
+	form div {
+		margin-top: 10px;
+	}
+
+	.flex-parent {
+		display: flex;
+	}
+
+	.flex-child {
+		flex: 1;
+	}
+
+	.flex-child:first-child {
+		margin-right: 5px;
 	}
 </style>
