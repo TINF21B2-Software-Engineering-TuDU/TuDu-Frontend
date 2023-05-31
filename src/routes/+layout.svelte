@@ -9,15 +9,26 @@
 	sidebar_open.subscribe((value) => {
 		sidebar_expand = value;
 	});
+
+	import Logo from '$lib/components/Logo.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
+	import ListTab from '$lib/components/ListTab.svelte';
 </script>
 
 <div id="supercontainer">
-	<aside style:width={sidebar_expand ? '20rem' : '0rem'}>
+	<aside style:width={sidebar_expand ? '350px' : '0px'}>
 		{#if sidebar_expand}
-			<div id="sidebar_content"
-				 in:fade={{ duration: 1000, easing: cubicOut }} 
-				out:fade={{ duration: 1000, easing: cubicOut }}>
-				<p>Nostrud labore dolor eu ea incididunt qui ipsum laborum Lorem in consectetur.</p>
+			<div
+				id="sidebar_content"
+				in:fade={{ duration: 1000, easing: cubicOut }}
+				out:fade={{ duration: 1000, easing: cubicOut }}
+			>
+				<Logo />
+				<TextInput placeholder="Search" icon="SEARCH" />
+				<p>LISTs HERE!</p>
+				<ListTab type="ADD" label="New List" onclick={()=>{
+					alert('//todo: Add new list');
+				}}/>
 			</div>
 		{/if}
 	</aside>
@@ -54,20 +65,25 @@
 	}
 
 	aside {
-		width: 20rem;
-
 		transition: width 1s ease-in-out;
 	}
 
 	#sidebar_content {
+		/* Left Bar */
+
+		/* Auto layout */
 		display: flex;
 		flex-direction: column;
-		flex: 1;
-		padding: 1rem;
-		margin: none;
-		gap: 2rem;
+		align-items: center;
+		margin: 0 20px;
+		gap: 5px;
+
+		margin-bottom: auto;
+
 		position: relative;
-		width: 18rem; 
+		width: 310px;
+		left: 0px;
+		top: -10px; /* cannot get the logo reduced to correct hight xD */
 	}
 
 	.page {

@@ -10,9 +10,11 @@
 	import Icon from '$lib/components/Icon.svelte';
 </script>
 
-<div class="content">
-	<Icon name={icon} width="18px" />
-	<input type="{type}" id="{id}" name="{name}" {placeholder} {value} required="{required}"/>
+<div style:width=100%>
+	<div class="content">
+		<Icon name={icon} width="18px" />
+		<input type="{type}" id="{id}" name="{name}" {placeholder} {value} required="{required}"/>
+	</div>
 </div>
 
 <!-- temporary untested css -->
@@ -39,6 +41,9 @@
 		flex: none;
 		align-self: stretch;
 		flex-grow: 1;
+		flex-shrink: 1;
+
+		width: 100%;
 
 		background: none;
 		border: none;
