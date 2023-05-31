@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
 	import Icon from '$lib/components/Icon.svelte';
 	import './style.css';
 	import { sidebar_open } from '$lib/stores/sidebar';
+	import { fade } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 
 	let sidebar_expand = false;
 	sidebar_open.subscribe((value) => {
@@ -10,7 +12,15 @@
 </script>
 
 <div id="supercontainer">
-	<aside hidden={sidebar_expand}>Nostrud labore dolor eu ea incididunt qui ipsum laborum Lorem in consectetur.</aside>
+	<aside style:width={sidebar_expand ? '20rem' : '0rem'}>
+		{#if sidebar_expand}
+			<div id="sidebar_content"
+				 in:fade={{ duration: 1000, easing: cubicOut }} 
+				out:fade={{ duration: 1000, easing: cubicOut }}>
+				<p>Nostrud labore dolor eu ea incididunt qui ipsum laborum Lorem in consectetur.</p>
+			</div>
+		{/if}
+	</aside>
 
 	<div class="page">
 		<div class="background" id="bg-layer-1" />
@@ -18,7 +28,7 @@
 
 		<div class="pagecontent">
 			<Icon
-				name={sidebar_expand ? 'SIDEBAR-EXPAND' : 'SIDEBAR-COLLAPSE'}
+				name={sidebar_expand ? 'SIDEBAR-COLLAPSE' : 'SIDEBAR-EXPAND'}
 				width="30px"
 				onclick={() => {
 					sidebar_open.update((value) => !value);
@@ -45,6 +55,19 @@
 
 	aside {
 		width: 20rem;
+
+		transition: width 1s ease-in-out;
+	}
+
+	#sidebar_content {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 1rem;
+		margin: none;
+		gap: 2rem;
+		position: relative;
+		width: 18rem; 
 	}
 
 	.page {
@@ -52,7 +75,7 @@
 		flex-direction: row;
 		flex: 1;
 	}
-	
+
 	.pagecontent {
 		display: flex;
 		flex-direction: column;
