@@ -12,13 +12,12 @@
 	<Icon
 		name="SIDEBAR-EXPAND"
 		width="30px"
-		interactive
 		onclick={() => {
 			alert('//todo:Expand sidebar');
 		}}
 	/>
 
-	<main><slot /></main>
+	<main tabindex="-1"><slot /></main>
 </div>
 
 <style>

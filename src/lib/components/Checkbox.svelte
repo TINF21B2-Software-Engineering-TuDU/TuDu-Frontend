@@ -9,7 +9,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<div on:click={check} on:keydown={enter} class="bg content" tabindex=0>
+<div id="checkbox" on:click={check} on:keydown={enter} class="bg content" tabindex=0>
 	{#if checked === true}
 		<svg
 			class="checkmark"
@@ -62,6 +62,10 @@
 </div>
 
 <style>
+	#checkbox {
+		cursor: pointer;
+	}
+
 	.bg {
 		width: 37px;
 		height: 37px;
