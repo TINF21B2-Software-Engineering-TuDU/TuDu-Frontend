@@ -6,8 +6,6 @@ FROM node:18-alpine AS build
 # Build with `docker build . -t tudu/frontend:latest`
 # Test with `docker run --name tudu-frontend -p 3000:3000 -d tudu/frontend:latest`
 # --------------
-LABEL maintainer="Proliecan <65495509+Proliecan@users.noreply.github.com>"
-LABEL date="2023-06-24"
 # --------------
 
 WORKDIR /app
