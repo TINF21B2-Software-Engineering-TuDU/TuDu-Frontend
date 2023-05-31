@@ -9,11 +9,11 @@ export let current_item = writable({
     isCompleted: false,
     contents: null,
     creationdate: new Date
-} as Task);
+} as unknown as Task);
 
 // use this writable when working with a single list
 export let current_list = writable({
     id: 0,
     items: null,
     name: "STANDARD_LIST"
-} as List);
+} as unknown as List);
