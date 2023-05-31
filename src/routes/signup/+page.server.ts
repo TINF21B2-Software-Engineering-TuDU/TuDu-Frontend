@@ -5,8 +5,10 @@ import {PUBLIC_API_URL} from "$env/static/public";
 
 const numSaltRound = 8;
 
-export const load: PageServerLoad = async () => {
-	// nothing needs to happen here
+export const load: PageServerLoad = async ({ locals }) => {
+	if (locals.user.isLoggedIn) {
+		throw redirect(302, '/main');
+	}
 };
 
 const postSignUp = async (username: string, hashedPassword: string) => {
@@ -31,10 +33,11 @@ const signup: Action = async ({ request }) => {
 	const data = await request.formData();
 	const username = data.get('username');
 	const password = data.get('password');
+	const password_repeat = data.get('password_repeat');
 
 	// check input
-	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
-		return fail(400, { invalid: true });
+	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password || password != password_repeat) {
+		return fail(400, { invalid: true, info: "Username or Password is undefined." });
 	}
 
 	const hashedPassword = await bcrypt.hash(password, numSaltRound);

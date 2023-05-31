@@ -1,6 +1,14 @@
 <script>
+	import { createEventDispatcher } from 'svelte'
+	const dispatch = createEventDispatcher()
+
 	export let checked = false;
-	let check = () => (checked = !checked);
+
+	let check = function () {
+		checked = !checked;
+		dispatch("check");
+	};
+
 	let enter = (/** @type {{ key: string; }} */ e) => {
 		if (e.key === 'Enter' || e.key === 'Space' || e.key === ' ') {
 			check();

@@ -22,6 +22,7 @@ export const actions = {
 	createNewList: async ({ request, locals, cookies }) => {
 		const formData = await request.formData();
 		const title = String(formData.get('title'));
+		const description = String(formData.get('description'));
 		const email = locals.user.username;
 
 		if (!title) {
@@ -32,6 +33,7 @@ export const actions = {
 		let temp = [];
 		temp.push(encodeURIComponent("email") + "=" + encodeURIComponent(email));
 		temp.push(encodeURIComponent("list_name") + "=" + encodeURIComponent(title));
+		temp.push(encodeURIComponent("description") + "=" + encodeURIComponent(description));
 		temp.push(encodeURIComponent("token")+"="+encodeURIComponent(cookies.get(TOKEN)));
 		let formBody = temp.join("&");
 

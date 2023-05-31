@@ -3,6 +3,7 @@
 	export let onclick = () => {
 		alert('No onclick function defined!');
 	};
+	export let button_type = "button";
 
 	export let types = ['default', 'confirm', 'delete'];
 	export let type = 'default';
@@ -21,7 +22,7 @@
 	class:default={type === 'default'}
 	class:confirm={type === 'confirm'}
 	class:delete={type === 'delete'}
-	type="button"
+	type={button_type}
 	value={label}
 	on:click={onclick}
 />
@@ -34,6 +35,7 @@
 		align-items: center;
 		padding: 0px 15px;
 		gap: 15px;
+		margin-top: 10px;
 
 		height: 45px;
 		width: 100%;

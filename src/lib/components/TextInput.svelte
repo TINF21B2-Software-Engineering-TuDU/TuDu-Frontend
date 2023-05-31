@@ -2,13 +2,17 @@
 	export let placeholder = 'Placeholder';
 	export let value = '';
 	export let icon = 'EDIT';
+	export let type = 'text';
+	export let id = "input_field";
+	export let name = "input_field";
+	export let required = false;
 
 	import Icon from '$lib/components/Icon.svelte';
 </script>
 
 <div class="content">
 	<Icon name={icon} width="18px" />
-	<input type="text" {placeholder} {value} />
+	<input type="{type}" id="{id}" name="{name}" {placeholder} {value} required="{required}"/>
 </div>
 
 <!-- temporary untested css -->
