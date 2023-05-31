@@ -5,37 +5,58 @@
 	import './style.css';
 </script>
 
-<div class="page">
-	<div class="background" id="bg-layer-1" />
-	<div class="background" id="bg-layer-2" />
+<div id="supercontainer">
+	<aside>Nostrud labore dolor eu ea incididunt qui ipsum laborum Lorem in consectetur.</aside>
 
-	<Icon
-		name="SIDEBAR-EXPAND"
-		width="30px"
-		onclick={() => {
-			alert('//todo:Expand sidebar');
-		}}
-	/>
+	<div class="page">
+		<div class="background" id="bg-layer-1" />
+		<div class="background" id="bg-layer-2" />
 
-	<main tabindex="-1"><slot /></main>
+		<div class="pagecontent">
+			<Icon
+				name="SIDEBAR-EXPAND"
+				width="30px"
+				onclick={() => {
+					alert('//todo:Expand sidebar');
+				}}
+			/>
+
+			<main tabindex="-1"><slot /></main>
+		</div>
+	</div>
 </div>
 
 <style>
-	.page {
+	#supercontainer {
 		display: flex;
 		flex-direction: row;
 		flex: 1;
 
-		/* Fix screen exactly without scrolling */
 		position: fixed;
-		top: 0;
 		bottom: 0;
-		left: 0;
+		top: 0;
 		right: 0;
+		left: 0;
+	}
 
-		margin: none;
+	aside {
+		width: 20rem;
+	}
+
+	.page {
+		display: flex;
+		flex-direction: row;
+		flex: 1;
+	}
+	
+	.pagecontent {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 		padding: 20px;
+		margin: none;
 		gap: 40px;
+		position: relative;
 	}
 
 	main {
@@ -54,8 +75,6 @@
 
 	.background {
 		position: absolute;
-		top: 0;
-		left: 0;
 		width: 100%;
 		height: 100%;
 
