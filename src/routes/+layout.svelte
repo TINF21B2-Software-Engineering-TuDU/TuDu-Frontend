@@ -1,12 +1,16 @@
-<script lang="ts">
-	import Footer from './Footer.svelte';
-	import Header from './Header.svelte';
+<script>
 	import Icon from '$lib/components/Icon.svelte';
 	import './style.css';
+	import { sidebar_open } from '$lib/stores/sidebar';
+
+	let sidebar_expand = false;
+	sidebar_open.subscribe((value) => {
+		sidebar_expand = value;
+	});
 </script>
 
 <div id="supercontainer">
-	<aside>Nostrud labore dolor eu ea incididunt qui ipsum laborum Lorem in consectetur.</aside>
+	<aside hidden={sidebar_expand}>Nostrud labore dolor eu ea incididunt qui ipsum laborum Lorem in consectetur.</aside>
 
 	<div class="page">
 		<div class="background" id="bg-layer-1" />
@@ -14,10 +18,10 @@
 
 		<div class="pagecontent">
 			<Icon
-				name="SIDEBAR-EXPAND"
+				name={sidebar_expand ? 'SIDEBAR-EXPAND' : 'SIDEBAR-COLLAPSE'}
 				width="30px"
 				onclick={() => {
-					alert('//todo:Expand sidebar');
+					sidebar_open.update((value) => !value);
 				}}
 			/>
 
