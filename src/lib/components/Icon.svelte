@@ -19,17 +19,24 @@
     const interactive = !!onclick;
     // add tabindex to make icon interactive
     $: tabindex = interactive ? 0 : undefined;
+
+    export let tint = "#eeeeee";
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<div >
-    <img id="img" class:content={interactive} src="/icons/{name}.png" alt="{name}" style="width: {width}; height: {width};"
-        on:click={onclick} on:keypress={handleEnter} tabindex={tabindex}>
+<div class:content={interactive} >
+    <div id="img" style="width: {width}; height: {width};"
+        on:click={onclick} on:keypress={handleEnter} tabindex={tabindex} 
+        style:background={tint} style:mask="url(/icons/{name}.png)" 
+        style:mask-size= "contain" style:mask-repeat="no-repeat" style:mask-position="center"/>
 </div>
 
 <style>
     .content {
         cursor: pointer;
+
+        width: max-content;
+        height: max-content;
     }
 
     .content:hover {
