@@ -21,8 +21,8 @@
 		{#if sidebar_expand}
 			<div
 				id="sidebar_content"
-				in:fade={{ duration: 1000, easing: cubicOut }}
-				out:fade={{ duration: 1000, easing: cubicOut }}
+				in:fade={{ duration: 3000, easing: cubicOut }}
+				out:fade={{ duration: 3000, easing: cubicOut }}
 			>
 				<Logo />
 				<TextInput placeholder="Search" icon="SEARCH" />
@@ -62,6 +62,7 @@
 	</aside>
 
 	<div class="page">
+		<div class="background" id="bg-layer-0" />
 		<div class="background" id="bg-layer-1" />
 		<div class="background" id="bg-layer-2" />
 
@@ -94,6 +95,8 @@
 
 	aside {
 		transition: width 1s ease-in-out;
+
+		z-index: -1000;
 	}
 
 	#sidebar_content {
@@ -167,23 +170,22 @@
 
 		z-index: -1;
 		border-radius: 10px 0 0 0;
+	}
 
-		border: 1px solid yellow;
+	#bg-layer-0 {
+		background: #292c44;
+		opacity: 1;
 	}
 
 	#bg-layer-1 {
 		/* White */
 		background: #eeeeee;
 		opacity: 0.3;
-		border-radius: 10px 0px 0px 0px;
-		border: 1px solid blue;
 	}
 
 	#bg-layer-2 {
 		/* Marker */
 		background: linear-gradient(180deg, #18cdca 70%, #8ce8e7 100%);
 		opacity: 0.3;
-		border-radius: 10px 0px 0px 0px;
-		border: 1px solid orange;
 	}
 </style>
