@@ -8,6 +8,8 @@ Bla
 + Bla
 + Bla 
 + Chicken`;
+	export let id = "input_field";
+	export let name = "input_field";
 
 	import Icon from '$lib/components/Icon.svelte';
 	export let iconTint = '#eeeeee';
@@ -15,7 +17,7 @@ Bla
 
 <div class="content">
 	<Icon name={icon} width="18px" tint={iconTint} />
-	<textarea {placeholder} rows="10">{value}</textarea>
+	<textarea {placeholder} rows="10" id="{id}" name="{name}">{value}</textarea>
 </div>
 
 <style>

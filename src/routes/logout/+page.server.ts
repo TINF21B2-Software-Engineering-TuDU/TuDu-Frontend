@@ -15,7 +15,7 @@ export const actions: Actions = {
         const response = await fetch(`${PUBLIC_API_URL}/auth/v1/logout`);
         if (response.status >= 400 || !response.ok) {
             // display error message in separate page
-            throw redirect(302, '/main');
+            return fail(500);
         }
         
         // reset user data

@@ -3,7 +3,10 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import {PUBLIC_API_URL} from "$env/static/public";
 import { TOKEN, TOKEN_BEARER } from '$env/static/private';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ locals }) => {
+	if (locals.user.isLoggedIn) {
+		throw redirect(302, '/main');
+	}
 };
 
 const postLogin = async (username: string, password: string) => {
