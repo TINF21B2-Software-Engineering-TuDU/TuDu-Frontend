@@ -17,15 +17,18 @@
 
 </script>
 
-<input
-	class="content"
-	class:default={type === 'default'}
-	class:confirm={type === 'confirm'}
-	class:delete={type === 'delete'}
-	type={button_type}
-	value={label}
-	on:click={onclick}
-/>
+<div>
+	
+	<input
+		class="content"
+		class:default={type === 'default'}
+		class:confirm={type === 'confirm'}
+		class:delete={type === 'delete'}
+		type={button_type}
+		value={label}
+		on:click={onclick}
+	/>
+</div>
 
 <style>
 	.content {

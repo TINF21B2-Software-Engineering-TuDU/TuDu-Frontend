@@ -13,6 +13,7 @@
 	import Logo from '$lib/components/Logo.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import ListTab from '$lib/components/ListTab.svelte';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
 <div id="supercontainer">
@@ -26,9 +27,36 @@
 				<Logo />
 				<TextInput placeholder="Search" icon="SEARCH" />
 				<p>LISTs HERE!</p>
-				<ListTab type="ADD" label="New List" onclick={()=>{
-					alert('//todo: Add new list');
-				}}/>
+				<ListTab
+					type="ADD"
+					label="New List"
+					onclick={() => {
+						alert('//todo: Add new list');
+					}}
+				/>
+
+				<div class="sidebarspacer" />
+
+				<div class="button-container">
+					
+
+						<Icon
+							name="USER"
+							width="45px"
+							onclick={() => {
+								alert('//todo: Settings');
+							}}
+						/>
+
+
+						<Button
+							label="Logout"
+							type="delete"
+							onclick={() => {
+								alert('//todo: Logout');
+							}}
+						/>
+				</div>
 			</div>
 		{/if}
 	</aside>
@@ -82,8 +110,24 @@
 
 		position: relative;
 		width: 310px;
+		height: 100%;
 		left: 0px;
 		top: -10px; /* cannot get the logo reduced to correct hight xD */
+	}
+
+	.sidebarspacer {
+		/* fill all the rest of the flexbox */
+		flex: 1;
+	}
+
+	.button-container {
+		display: flex;
+		flex-direction: row;
+		gap: 30px;
+
+		width: 100%;
+		justify-content: center;
+		align-items: baseline;
 	}
 
 	.page {
