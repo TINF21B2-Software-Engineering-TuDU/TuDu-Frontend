@@ -1,19 +1,26 @@
 <script lang="ts">
 	import Icon from '$lib/components/Icon.svelte';
-	import './style.css';
 	import { sidebar_open } from '$lib/stores/sidebar';
-	import { fade } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	import { fade } from 'svelte/transition';
+	import type { PageData } from './$types';
+	import './style.css';
 
 	let sidebar_expand = false;
 	sidebar_open.subscribe((value) => {
 		sidebar_expand = value;
 	});
 
+	import Button from '$lib/components/Button.svelte';
+	import LinkButton from '$lib/components/LinkButton.svelte';
+	import ListTab from '$lib/components/ListTab.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
-	import ListTab from '$lib/components/ListTab.svelte';
-	import Button from '$lib/components/Button.svelte';
+
+	// DATA
+	export let data: PageData;
+
+	const { lists } = data;
 </script>
 
 <div id="supercontainer">
@@ -26,7 +33,15 @@
 			>
 				<Logo />
 				<TextInput placeholder="Search" icon="SEARCH" />
-				<p>LISTs HERE!</p>
+				<!-- LISTS -->
+				{#if lists != null}
+					{#each lists as list}
+						<LinkButton label="{list.list_name}" destination="/main/lists/{list.list_id}"/>
+					{/each}
+				{:else}
+					<p>You have no lists!</p>
+				{/if}
+
 				<ListTab
 					type="ADD"
 					label="New List"
