@@ -5,7 +5,7 @@
 	export let destination = "/";
 </script>
 
-<a href="{destination}">
+<a data-sveltekit-preload-data="tap"  href="{destination}">
 	<Button label="{label}" onclick="{() => null}"/>
 </a>
 
