@@ -64,13 +64,9 @@
 						/>
 
 
-						<Button
-							label="Logout"
-							type="delete"
-							onclick={() => {
-								alert('//todo: Logout');
-							}}
-						/>
+						<form class="logout" action="/logout" method="POST">
+							<Button label="Logout" type="delete" button_type="submit" onclick={() => null} />
+						</form>
 				</div>
 			</div>
 		{/if}
