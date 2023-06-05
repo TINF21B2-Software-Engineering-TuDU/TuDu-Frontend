@@ -54,15 +54,14 @@
 
 				<div class="button-container">
 					
-
+					<a href="/user">
+						{data.user.username}
 						<Icon
 							name="USER"
 							width="45px"
-							onclick={() => {
-								alert('//todo: Settings');
-							}}
+							onclick={() => null}
 						/>
-
+					</a>
 
 						<form class="logout" action="/logout" method="POST">
 							<Button label="Logout" type="delete" button_type="submit" onclick={() => null} />
