@@ -1,9 +1,7 @@
+import { TOKEN } from '$env/static/private';
 import { PUBLIC_API_URL } from '$env/static/public';
-import type { List, Task } from '../../../../entities';
+import { fail, redirect } from '@sveltejs/kit';
 import type { PageLoad } from '../../../$types';
-import { fail } from '@sveltejs/kit';
-import { TOKEN, TOKEN_BEARER } from '$env/static/private';
-import { invalidateAll } from '$app/navigation';
 
 export const load = (async ({ fetch, params }) => {
 	const listResponse = await fetch(`${PUBLIC_API_URL}/api/v1/list/${params.list}`);
@@ -15,7 +13,7 @@ export const load = (async ({ fetch, params }) => {
 		tasksResponse.status >= 400 ||
 		!tasksResponse.ok
 	) {
-		return { list: null, tasks: null };
+		throw redirect(302, "/main");
 	}
 	const listData = await listResponse.json();
 	const tasksData = await tasksResponse.json();
@@ -119,6 +117,31 @@ export const actions = {
 		});
 
 		if (response.ok) {
+			return { success: true };
+		} else {
+			return fail(response.status, { text: response.statusText });
+		}
+	},
+	deleteList: async ({ request, locals, cookies }) => {
+		const formData = await request.formData();
+		const list_id = Number(formData.get('list_id'));
+		const email = locals.user.username;
+
+		// API CALL
+		let temp = [];
+		temp.push(encodeURIComponent('token') + '=' + encodeURIComponent(cookies.get(TOKEN)));
+
+		const formBody = temp.join('&');
+		const response = await fetch(`${PUBLIC_API_URL}/api/v1/list/${list_id}`, {
+			method: 'DELETE',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: formBody
+		});
+
+		if (response.headers.get('content-type')?.includes('application/json')) {
 			return { success: true };
 		} else {
 			return fail(response.status, { text: response.statusText });
