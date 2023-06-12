@@ -20,8 +20,8 @@
 	$: list = data.list;
 	$: tasks = data.tasks;
 
-	$: unfinishedTasks = tasks.filter((task) => !task.iscompleted);
-	$: finishedTasks = tasks.filter((task) => task.iscompleted);
+	$: unfinishedTasks = tasks.filter((task: Task) => !task.iscompleted).sort((a: Task, b: Task) => new Date(a.duedate) - new Date(b.duedate));
+	$: finishedTasks = tasks.filter((task: Task) => task.iscompleted).sort((a: Task, b: Task) => new Date(a.duedate) - new Date(b.duedate));
 
 	// Reocurring Rule Sets
 	const rule_set = [
