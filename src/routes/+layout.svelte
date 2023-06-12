@@ -16,6 +16,7 @@
 	import ListTab from '$lib/components/ListTab.svelte';
 	import Logo from '$lib/components/Logo.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
+	import Divider from '$lib/components/Divider.svelte';
 
 	// DATA
 	export let data: PageData;
@@ -42,13 +43,8 @@
 					<p>You have no lists!</p>
 				{/if}
 
-				<ListTab
-					type="ADD"
-					label="New List"
-					onclick={() => {
-						alert('//todo: Add new list');
-					}}
-				/>
+				<Divider />
+				<LinkButton label="Create New List" destination="/main/#create-new-list" />
 
 				<div class="sidebarspacer" />
 
