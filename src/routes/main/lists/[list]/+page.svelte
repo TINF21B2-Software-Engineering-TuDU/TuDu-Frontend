@@ -70,6 +70,25 @@
 		// better use invalidate("/") or invalidateAll(), but they are not working...
 		location.reload();
 	};
+
+	// Delete List	
+	let deleteList = async function (list_id: Number) {
+		let temp = [];
+		temp.push(encodeURIComponent('list_id') + '=' + encodeURIComponent(list_id.toString()));
+
+		const deleteResponse = await fetch('?/deleteList', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			body: temp
+		});
+		if (deleteResponse.status >= 400 || !deleteResponse.ok) {
+			return null;
+		}
+		location.reload();
+	};
 </script>
 
 {#if list === undefined}
@@ -152,6 +171,8 @@
 
 		<Button label="Create Task" button_type="submit" type="confirm" onclick={() => null} />
 	</form>
+
+	<Button label="Delete List" type="delete" onclick={() => deleteList(list.list_id)} />
 {/if}
 
 <style>

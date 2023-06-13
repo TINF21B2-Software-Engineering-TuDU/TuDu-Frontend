@@ -51,23 +51,5 @@ export const actions = {
 		} else {
 			return fail(response.status, { text: response.statusText });
 		}
-	},
-
-	deleteList: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const list_id = Number(formData.get('list_id'));
-		const email = locals.user.username;
-
-		// API CALL
-		const response = await fetch(`${PUBLIC_API_URL}/api/v1/list/${list_id}`, {
-			method: 'DELETE',
-			body: JSON.stringify({ email: email })
-		});
-
-		if (response.headers.get('content-type')?.includes('application/json')) {
-			return { success: true };
-		} else {
-			return fail(response.status, { text: response.statusText });
-		}
 	}
 };
