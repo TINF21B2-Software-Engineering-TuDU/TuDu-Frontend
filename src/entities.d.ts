@@ -14,6 +14,7 @@ export interface Task {
 	iscompleted: boolean,
 	duedate: Date,
 	contents?: string | null,
+	reoccuring_rule: string,
 	readonly creationdate: Date,
 }
 
