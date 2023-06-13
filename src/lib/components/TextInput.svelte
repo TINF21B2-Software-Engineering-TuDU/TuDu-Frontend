@@ -8,6 +8,7 @@
 	export let required = false;
 
 	import Icon from '$lib/components/Icon.svelte';
+	export let iconTint = '#eeeeee';
 </script>
 
 <div style:width=100%>
