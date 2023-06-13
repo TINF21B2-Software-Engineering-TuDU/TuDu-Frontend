@@ -28,7 +28,7 @@
 	<p>You have no lists!</p>
 {/if}
 
-<h3>Create new List</h3>
+<h3 id="create-new-list">Create new List</h3>
 
 <form method="POST" action="?/createNewList">
 	<div>

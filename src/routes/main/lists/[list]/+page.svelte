@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { invalidate, invalidateAll } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import DateInput from '$lib/components/DateInput.svelte';
 	import Divider from '$lib/components/Divider.svelte';
@@ -9,15 +8,20 @@
 	import TextArea from '$lib/components/TextArea.svelte';
 	import TextInput from '$lib/components/TextInput.svelte';
 	import { ReocurringRuleTypes } from '$lib/entities';
+	import type { List } from '../../../../entities';
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
 	export let form: ActionData;
 
-	const { list, tasks } = data;
+	export let list: List;
+	export let tasks: Task;
 
-	let unfinishedTasks = tasks.filter((task) => !task.iscompleted);
-	let finishedTasks = tasks.filter((task) => task.iscompleted);
+	$: list = data.list;
+	$: tasks = data.tasks;
+
+	$: unfinishedTasks = tasks.filter((task: Task) => !task.iscompleted).sort((a: Task, b: Task) => new Date(a.duedate) - new Date(b.duedate));
+	$: finishedTasks = tasks.filter((task: Task) => task.iscompleted).sort((a: Task, b: Task) => new Date(a.duedate) - new Date(b.duedate));
 
 	// Reocurring Rule Sets
 	const rule_set = [
@@ -29,12 +33,10 @@
 	];
 	let selected_rule = -1;
 
-	// Mark Task as complete
-	let check = async function (task_id: Number) {
+	let checkTask = async function (task: Task, index) {
 		let temp = [];
+		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task.task_id.toString()));
 
-		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task_id.toString()));
-		let formBody = temp.join('&');
 		const checkResponse = await fetch('?/checkTask', {
 			method: 'POST',
 			headers: {
@@ -43,20 +45,24 @@
 			},
 			body: temp
 		});
+
 		if (checkResponse.status >= 400 || !checkResponse.ok) {
 			return null;
+		} else {
+			task.iscompleted = !task.iscompleted;
+			if (task.iscompleted) {
+				finishedTasks = [...finishedTasks, unfinishedTasks.pop(index)];
+			} else {
+				unfinishedTasks = [...unfinishedTasks, finishedTasks.pop(index)];
+			}
 		}
-		// better use invalidate("/") or invalidateAll(), but they are not working...
-		location.reload();
 	};
 
-	// Delete Task
-	let deleteTask = async function (task_id: Number) {
+	let deleteTask = async function (task: Task, index) {
 		let temp = [];
+		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task.task_id.toString()));
 
-		temp.push(encodeURIComponent('taskId') + '=' + encodeURIComponent(task_id.toString()));
-		let formBody = temp.join('&');
-		const checkResponse = await fetch('?/deleteTask', {
+		const deleteResponse = await fetch('?/deleteTask', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -64,11 +70,22 @@
 			},
 			body: temp
 		});
-		if (checkResponse.status >= 400 || !checkResponse.ok) {
+
+		if (deleteResponse.status >= 400 || !deleteResponse.ok) {
 			return null;
+		} else {
+			if (task.iscompleted) {
+				finishedTasks = [
+					...finishedTasks.slice(0, index),
+					...finishedTasks.slice(index + 1, finishedTasks.length)
+				];
+			} else {
+				unfinishedTasks = [
+					...unfinishedTasks.slice(0, index),
+					...unfinishedTasks.slice(index + 1, unfinishedTasks.length)
+				];
+			}
 		}
-		// better use invalidate("/") or invalidateAll(), but they are not working...
-		location.reload();
 	};
 
 	// Delete List	
@@ -98,32 +115,37 @@
 	<p>{list.description}</p>
 
 	<LinkButton label="Back" destination="/main" />
-	<Divider />
 
 	<div class="tasks">
 		{#if tasks !== null && tasks.length > 0}
-			<h3>Unfinished TuDu's:</h3>
-			{#each unfinishedTasks as task, i}
-				<Task
-					bind:task
-					list_id={list.list_id}
-					on:check={() => check(task.task_id, i)}
-					on:deleteTask={() => deleteTask(task.task_id)}
-				/>
-			{/each}
-			<Divider />
-			<h3>Finished TuDu's</h3>
-			{#each finishedTasks as task, i}
-				<Task
-					bind:task
-					list_id={list.list_id}
-					on:check={() => check(task.task_id, i)}
-					on:deleteTask={() => deleteTask(task.task_id)}
-				/>
-			{/each}
+			{#if unfinishedTasks !== null && unfinishedTasks.length > 0}
+				<Divider />
+				<h3>Unfinished TuDu's ({unfinishedTasks.length}):</h3>
+				{#each unfinishedTasks as task, i}
+					<Task
+						bind:task
+						list_id={list.list_id}
+						on:check={() => checkTask(task, i)}
+						on:deleteTask={() => deleteTask(task, i)}
+					/>
+				{/each}
+			{/if}
+			{#if finishedTasks !== null && finishedTasks.length > 0}
+				<Divider />
+				<h3>Finished TuDu's ({finishedTasks.length})</h3>
+				{#each finishedTasks as task, i}
+					<Task
+						bind:task
+						list_id={list.list_id}
+						on:check={() => checkTask(task, i)}
+						on:deleteTask={() => deleteTask(task, i)}
+					/>
+				{/each}
+			{/if}
 		{/if}
 	</div>
 
+	<Divider />
 	<h3>Create new Task</h3>
 
 	<form method="POST" action="?/createNewTask">
