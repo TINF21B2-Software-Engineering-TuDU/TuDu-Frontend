@@ -29,37 +29,47 @@
 	let deleteTask = function () {
 		dispatch('deleteTask');
 	};
-
-	// TODO: evtl. edit in der Component statt auf weitere route
-	// let switchEditMode = function () {
-	// 	console.log('SWICTH');
-	// 	inEditMode = !inEditMode;
-	// };
 </script>
 
 <div class="box">
-	<h3>{task.title} #{task.task_id}</h3>
-	<Checkbox checked={task.iscompleted} on:check={check} />
+	<table>
+		<tr>
+			<td><Checkbox checked={task.iscompleted} on:check={check} /></td>
+			<td><h3>{task.title}</h3></td>
+		</tr>
+	</table>
 
-	<p>{task.contents}</p>
+	{#if task.contents}
+		<u>Description:</u>
+		<p>{task.contents}</p>
+	{/if}
 
 	{#if task.duedate === null}
 		<p id="dueDate" style="--theme-color: {color}">Due anytime</p>
 	{:else}
 		<p id="dueDate" style="--theme-color: {color}">
-			Due until {new Date(task.duedate).toLocaleDateString('de-DE')}<sub
-				>Created on {new Date(task.creationdate).toLocaleDateString('de-DE')}</sub
-			>
+			Due until: {new Date(task.duedate).toLocaleDateString('de-DE')}
 		</p>
+		{#if !(task.reoccuring_rule === 'undefined')}
+			<p>Reocurring Rule: {task.reoccuring_rule}</p>
+		{/if}
 	{/if}
 
-	<LinkButton label="Edit Task" destination="/main/lists/{list_id}/task/{task.task_id}" />
-	<Button
-		label="Delete Task"
-		type="delete"
-		on:onclick={deleteTask}
-		onclick={() => dispatch('deleteTask')}
-	/>
+	<p>Created on: {new Date(task.creationdate).toLocaleDateString('de-DE')}</p>
+
+	<div class="flex-parent">
+		<div class="flex-child">
+			<LinkButton label="Edit Task" destination="/main/lists/{list_id}/task/{task.task_id}" />
+		</div>
+		<div class="flex-child">
+			<Button
+				label="Delete Task"
+				type="delete"
+				on:onclick={deleteTask}
+				onclick={() => dispatch('deleteTask')}
+			/>
+		</div>
+	</div>
 </div>
 
 <style>
@@ -72,5 +82,17 @@
 
 	#dueDate {
 		color: var(--theme-color);
+	}
+
+	.flex-parent {
+		display: flex;
+	}
+
+	.flex-child {
+		flex: 1;
+	}
+
+	.flex-child:first-child {
+		margin-right: 5px;
 	}
 </style>
