@@ -50,7 +50,7 @@
 		<p id="dueDate" style="--theme-color: {color}">
 			Due until: {new Date(task.duedate).toLocaleDateString('de-DE')}
 		</p>
-		{#if !(task.reoccuring_rule === 'undefined')}
+		{#if !(task.reoccuring_rule === 'undefined') && !(task.reoccuring_rule === 'null') && task.reoccuring_rule }
 			<p>Reocurring Rule: {task.reoccuring_rule}</p>
 		{/if}
 	{/if}
